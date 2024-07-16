@@ -187,9 +187,7 @@
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function(){
 
-            
-
-            let post_image=document.queryselector('#post_image').files[0];
+            //let post_image=document.queryselector('#post_image').files[0];
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
@@ -200,7 +198,7 @@
             //let image_upload = image_path.put(post_image) 
 
             let doc ={
-                'post_image' : post_image,
+                //'post_image' : post_image,
                 'post_title' : post_title,
                 'post_comment' : post_comment,
                 'post_role' : post_role,
@@ -220,9 +218,9 @@
 
         //저장된 데이터 가져와서 card 생성
         let docs = await getDocs(collection(db,"posting"));
-        docs.forEach(element => {
+        docs.forEach((doc) => {
             let posting = doc.data();
-            console.log(row);
+            console.log(posting);
 
             //let post_image = posting['post_image'];
             let post_title = posting['post_title'];
@@ -234,7 +232,7 @@
             <div class="card mb-3" style="width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="/*${post_image}*/"
+                        <img src=""
                             class="img-fluid rounded-start" alt="프로젝트 사진">
                     </div>
                     <div class="col-md-8">
@@ -247,7 +245,7 @@
                     </div>
                 </div>
             </div>`;
-            $('#card').append(temp_html);
+            $('#projectCards').append(temp_html);
         });
 
     </script>
@@ -342,7 +340,7 @@
 
     <!--프로젝트 카드-->
     <div class="projectCard">
-        <div id="card" class="row row-cols-1 row-cols-md-1 g-4">
+        <div id="projectCards" class="row row-cols-1 row-cols-md-1 g-4">
             <div class="card mb-3" style="width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
