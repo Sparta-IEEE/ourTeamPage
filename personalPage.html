@@ -16,6 +16,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- CSS -->
     <style>
+        /*구글 폰트*/
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
         * {
@@ -143,8 +144,9 @@
 
             margin-top: 20px;
         }
-        .projectHeader button{
-            border:transparent;
+
+        .projectHeader button {
+            border: transparent;
             background-color: transparent;
         }
     </style>
@@ -154,6 +156,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
     <!--javascript-->
     <script type="module">
 
@@ -185,7 +188,7 @@
 </head>
 
 <body>
-    <!-- 헤더 -->
+    <!--Nav bar-->
     <header>
 
         <div class="container">
@@ -200,22 +203,22 @@
             </ul>
         </div>
 
-
-
-
     </header>
 
 
-    <!--Project-->
+    <!--Project 영역 (헤더,프로젝트 포스팅 박스, 프로젝트 카드)-->
+
     <div class="projectHeader">
         <div style="width:70%;">
             <div>
                 <h2>Project</h2>
             </div>
             <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
             </button>
             <hr>
         </div>
@@ -243,7 +246,29 @@
             <input type="post_date" class="form-control" id="post_date" placeholder="프로젝트 진행 날짜">
             <label for="floatingInput">프로젝트 진행 날짜</label>
         </div>
-        <button type="button" class="btn">프로젝트 저장</button>
+        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트 저장</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--프로젝트 카드-->
@@ -253,7 +278,7 @@
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b"
-                            class="img-fluid rounded-start" alt="...">
+                            class="img-fluid rounded-start" alt="프로젝트 사진">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -271,7 +296,7 @@
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b"
-                            class="img-fluid rounded-start" alt="...">
+                            class="img-fluid rounded-start" alt="프로젝트 사진">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
