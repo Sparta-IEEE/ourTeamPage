@@ -125,7 +125,7 @@
             justify-content: center;
         }
 
-        .projectCard>img {
+        .projectCard img {
             max-height: 100%;
             max-width: 100%;
             align-items: center;
@@ -133,6 +133,19 @@
             justify-content: center;
             align-items: center;
 
+        }
+
+        .projectHeader {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 20px;
+        }
+        .projectHeader button{
+            border:transparent;
+            background-color: transparent;
         }
     </style>
 
@@ -193,6 +206,20 @@
     </header>
 
 
+    <!--Project-->
+    <div class="projectHeader">
+        <div style="width:70%;">
+            <div>
+                <h2>Project</h2>
+            </div>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                  </svg>
+            </button>
+            <hr>
+        </div>
+    </div>
 
     <!--프로젝트 포스팅 박스-->
     <div class="projectPostingBox">
@@ -217,16 +244,6 @@
             <label for="floatingInput">프로젝트 진행 날짜</label>
         </div>
         <button type="button" class="btn">프로젝트 저장</button>
-    </div>
-
-
-    <!--Project-->
-    <div>
-        <div style="width:70%;">
-            <h2>Project</h2>
-            <button>plus</button>
-            <hr>
-        </div>
     </div>
 
     <!--프로젝트 카드-->
