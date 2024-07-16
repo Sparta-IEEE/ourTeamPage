@@ -84,20 +84,36 @@
             padding: 20px;
         }
 
-        .projectPostingBox{
+        .projectPostingBox {
             width: 700px;
             margin: 20px auto 20px auto;
 
             border: 1px solid black;
             padding: 20px;
             border-radius: 5px;
+            
         }
-        
-        .btn{
+
+        .btn {
             background-color: #FFA62F;
+            margin-left: auto;
         }
 
+        .btn:hover {
+            color: #fff;
+            background-color: #FF6500;
+        }
 
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .projectCard{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 
 
@@ -163,7 +179,6 @@
         <div class="input-group">
             <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
                 aria-label="Upload">
-            <!-- <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button> -->
         </div>
         <div class="form-floating mb-3">
             <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
@@ -182,7 +197,45 @@
             <label for="floatingInput">프로젝트 진행 날짜</label>
         </div>
         <button type="button" class="btn">프로젝트 저장</button>
+    </div>
 
+
+    <!--프로젝트 카드-->
+    <div class="projectCard">
+        <div class="row row-cols-1 row-cols-md-1 g-4">
+            <div class="card mb-3" style="width: 700px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">프로젝트명</h5>
+                      <p class="card-text">프로젝트 설명</p>
+                      <p class="card-text"><small class="text-muted">맡은 역할</small></p>
+                      <p class="card-text"><small class="text-muted">프로젝트 진행 날짜</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-1 g-4">
+            <div class="card mb-3" style="width: 700px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">프로젝트명</h5>
+                      <p class="card-text">프로젝트 설명</p>
+                      <p class="card-text"><small class="text-muted">맡은 역할</small></p>
+                      <p class="card-text"><small class="text-muted">프로젝트 진행 날짜</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
 
 
