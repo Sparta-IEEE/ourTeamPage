@@ -1,66 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEEE Team Page</title>
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+
     <!--JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--BootStrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- CSS -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap');
+        .logo {
+            background-color: green;
+            margin : 0px 10px 0px 10px;
+        }
 
-        * {
-            font-family: "Gowun Dodum", sans-serif;
+        .nav a img {
+            max-height: 100%;
+            max-width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .main {
-            color: white;
-
-            /*배경 이미지*/
-            background-image: url('https://occ-0-1123-1217.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABeIfo7VL_VDyKnljV66IkR-4XLb6xpZqhpLSo3JUtbivnEW4s60PD27muH1mdaANM_8rGpgbm6L2oDgA_iELHZLZ2IQjG5lvp5d2.jpg?r=e6e.jpg');
-            background-position: center;
-            background-size: cover;
+            background-color: #2E4A4A;
+            color: #FFFFFF;
         }
 
-        body {
-            background-color: black;
+        .text {
+            padding: 30px;
         }
 
-        .mycards {
-            width: 1200px;
-            margin: 20px auto 20px auto;
+        .text-contianer {
+            align-items: center;
+            margin-right: 7vh;
+            margin-left: 6vh;
         }
 
-        .mypostingbox {
-            width: 500px;
-            margin: 20px auto 20px auto;
+        .section-container {
+            margin-left: 12vh;
+            margin-right: 12vh;
+            padding-top: 10vh;
+            padding-bottom: 10vh;
+            align-items: center;
+        }
 
-            border: 1px solid white;
+        .card {
+            margin: 4vh;
+        }
+
+        .rounded-circle {
             padding: 20px;
-            border-radius: 5px;
         }
 
-        .form-floating>input {
-            background-color: transparent;
-            color: white;
-        }
-
-        .form-floating>label {
-            color: white;
-        }
-
-        .input-group>label {
-            background-color: transparent;
-            color: white;
-        }
-
-        .mypostingbox>button {
-            width: 100%;
+        .memberNav{
+            
         }
     </style>
+    <!--BootStrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <!--javascript-->
     <script type="module">
 
@@ -88,145 +102,111 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-
-        $("#postingbtn").click(async function () {
-            let image = $('#image').val();
-            let title = $('#title').val();
-            let star = $('#star').val();
-            let comment = $('#comment').val();
-
-            let doc = {
-                'image': image,
-                'title': title,
-                'star': star,
-                'comment': comment
-            };
-            await addDoc(collection(db, "movies"), doc);
-            alert('저장완료!');
-            window.location.reload();
-        })
-
-        $("#savebtn").click(async function () {
-            $('#postingbox').toggle();
-        })
-
-        let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
-        fetch(url).then(res => res.json()).then(data => {
-            let temp = data['temp'];
-            $('#msg').text(temp);
-        })
-
-
-        function openclose() {
-            $('#postingbox').toggle();
-        }
-
-        let docs = await getDocs(collection(db, "movies"));
-        docs.forEach((doc) => {
-            let row = doc.data();
-            console.log(row);
-
-            let image = row['image'];
-            let title = row['title'];
-            let star = row['star'];
-            let comment = row['comment'];
-
-            let temp_html = `            
-            <div class="col">
-                <div class="card h-100">
-                    <img src="${image}"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${title}</h5>
-                        <p class="card-text">${star}</p>
-                        <p class="card-text">${comment}</p>
-                    </div>
-                </div>
-            </div>`;
-            $('#card').append(temp_html);
-        });
-
     </script>
 </head>
 
 <body>
-    <!--header-->
-    <header class="p-3 text-bg-dark">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
+    <!-- 헤더 -->
+    <header
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img class="logo" width="100" src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b">
+            </a>
+        </div>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 text-danger">spartaflix</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">홈</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">시리즈</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">영화</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">내가 찜한 콘텐츠</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">현재기온 : <span id="msg"></span>도</a></li>
-                </ul>
+        <div class="memberNav">
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2">강수민</a></li>
+                <li><a href="#" class="nav-link px-2">나유화</a></li>
+                <li><a href="#" class="nav-link px-2">남진혁</a></li>
+                <li><a href="#" class="nav-link px-2">박예서</a></li>
+            </ul>
+        </div>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                        aria-label="Search">
-                </form>
 
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-danger">Sign-up</button>
+    </header>
+
+    <!-- 메인 -->
+    <section class="main">
+        <div class="text-contianer row">
+            <div class="col-5 text">
+                <h1>IEEE</h1><br>
+                <h5 style="line-height : 1.9;">
+                    팀원들의 MBTI의 앞글자를 따서 IEEE로 작명하게 되었습니다. IEEE는 (Institute of Electrical and Electronics Engineers)로
+                    세계적으로
+                    유명한 전기/전자/전산 분야 국제 기구 학회임으로 같이 공부하고 이야기 나누며 발전하자는 의미도 있습니다.
+                </h5>
+                <h5 style="line-height : 1.5; margin-top : 12vh;">
+                    점심시간<br>12:00 ~ 13:00<br>
+                    저녁시간<br>18:00 ~ 19:00
+                </h5>
+            </div>
+            <div class="col-7">
+                <img src="image/background.png" alt="IEEE 팀 이미지">
+            </div>
+        </div>
+    </section>
+
+    <!-- 카드 -->
+    <section class="section-container">
+        <div class="row">
+            <div class="card col" style="width: 18rem;">
+                <img src="https://ca.slack-edge.com/T06B9PCLY1E-U077PDWS5MZ-ae6458e40e0f-512"
+                    class="card-img-top rounded-circle" alt="강수민">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><b>강수민</b></h5>
+                    <p class="card-text">MBTI</p>
+                    <p class="card-text">각오 한마디</p>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <img src="https://ca.slack-edge.com/T06B9PCLY1E-U075JR99LUE-e0bf2605504e-512"
+                    class="card-img-top rounded-circle" alt="나유화">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><b>나유화</b></h5>
+                    <p class="card-text">MBTI</p>
+                    <p class="card-text">각오 한마디</p>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <img src="https://ca.slack-edge.com/T06B9PCLY1E-U075HR8AP0B-7831a1dda1b0-512"
+                    class="card-img-top rounded-circle" alt="남진현">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><b>남진현</b></h5>
+                    <p class="card-text">MBTI</p>
+                    <p class="card-text">각오 한마디</p>
+                </div>
+            </div>
+            <div class="card col" style="width: 18rem;">
+                <img src="https://ca.slack-edge.com/T06B9PCLY1E-U0737SKUL93-6423d971606f-512"
+                    class="card-img-top rounded-circle" alt="박예서">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><b>박예서</b></h5>
+                    <p class="card-text">MBTI</p>
+                    <p class="card-text">각오 한마디</p>
                 </div>
             </div>
         </div>
-    </header>
-    <div class="main">
-        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-            <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold">킹덤</h1>
-                <p class="col-md-8 fs-4">병든 왕을 둘러싸고 흉흉한 소문이 떠돈다. 어둠에 뒤덮인 조선, 기이한 역병에 신음하는 산하. 정체 모를 악에 맞서 백성을 구원할 희망은 오직
-                    세자뿐이다.</p>
-                <button id="savebtn" type="button" class="btn btn-outline-light">영화 기록하기</button>
-                <button type="button" class="btn btn-outline-light">상세정보</button>
+    </section>
+
+    <!-- 댓글 -->
+    <section>
+        <h2>Comments</h2>
+        <hr style="width: 70%;">
+        <div class="section-container">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!--포스팅 박스-->
-    <div class="mypostingbox" id="postingbox">
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="image" placeholder="영화 이미지 주소">
-            <label for="floatingInput">영화 이미지 주소</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="title" placeholder="영화 제목">
-            <label for="floatingInput">영화 제목</label>
-        </div>
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">별점</label>
-            <select class="form-select" id="star">
-                <option selected>별점선택</option>
-                <option value="⭐">⭐</option>
-                <option value="⭐⭐">⭐⭐</option>
-                <option value="⭐⭐⭐">⭐⭐⭐</option>
-                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
-                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
-            </select>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="comment" placeholder="추천 이유">
-            <label for="floatingInput">추천 이유</label>
-        </div>
-        <button id="postingbtn" type="button" class="btn btn-danger">기록하기</button>
-    </div>
 
-    <!--card-->
-    <div class="mycards">
-        <div id="card" class="row row-cols-1 row-cols-md-4 g-4">
-
-        </div>
-    </div>
 </body>
 
 </html>
