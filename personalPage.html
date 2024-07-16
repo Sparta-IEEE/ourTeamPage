@@ -14,6 +14,9 @@
     <!--BootStrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <!-- CSS -->
     <style>
         /*구글 폰트*/
@@ -153,12 +156,6 @@
         }
     </style>
 
-
-    <!--BootStrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
     <!--javascript-->
     <script type="module">
 
@@ -185,6 +182,73 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getFirestore(app);
+
+        //프로젝트 포스팅 박스 클릭시
+        $('#projectPostBtn').click(async function(){
+
+            
+
+            let post_image=document.queryselector('#post_image').files[0];
+            let post_title = $('#post_title').val();
+            let post_comment = $('#post_comment').val();
+            let post_role = $('#post_role').val();
+            let post_date = $('#post_date').val();
+
+            //let storageRef = storage.ref();
+            //let image_path = storageRef.child('projectImage/'+ file.name);
+            //let image_upload = image_path.put(post_image) 
+
+            let doc ={
+                'post_image' : post_image,
+                'post_title' : post_title,
+                'post_comment' : post_comment,
+                'post_role' : post_role,
+                'post_date' : post_date                
+
+            };
+
+            await addDoc(collection(db,"posting"),doc);
+            alert('저장완료!');
+            window.location.reload();
+        })
+
+        //포스팅 박스 토글
+        $('#savebtn').click(async function(){
+            $('#projectPostingBox').toggle();
+        })
+
+        //저장된 데이터 가져와서 card 생성
+        let docs = await getDocs(collection(db,"posting"));
+        docs.forEach(element => {
+            let posting = doc.data();
+            console.log(row);
+
+            //let post_image = posting['post_image'];
+            let post_title = posting['post_title'];
+            let post_comment = posting['post_comment'];
+            let post_role = posting['post_role'];
+            let post_date = posting['post_date'];
+
+            let temp_html=`
+            <div class="card mb-3" style="width: 700px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/*${post_image}*/"
+                            class="img-fluid rounded-start" alt="프로젝트 사진">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">${post_title}</h5>
+                            <p class="card-text">${post_comment}</p>
+                            <p class="card-text"><small class="text-muted">${post_role}</small></p>
+                            <p class="card-text"><small class="text-muted">${post_date}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $('#card').append(temp_html);
+        });
 
     </script>
 </head>
@@ -215,7 +279,7 @@
             <div>
                 <div>
                     <h2>Project
-                        <button>
+                        <button id="savebtn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -230,9 +294,9 @@
     </div>
 
     <!--프로젝트 포스팅 박스-->
-    <div class="projectPostingBox">
+    <div class="projectPostingBox" id="projectPostingBox">
         <div class="input-group">
-            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+            <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                 aria-label="Upload">
         </div>
         <div class="form-floating mb-3">
@@ -251,7 +315,7 @@
             <input type="post_date" class="form-control" id="post_date" placeholder="프로젝트 진행 날짜">
             <label for="floatingInput">프로젝트 진행 날짜</label>
         </div>
-        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트 저장</button>
+        <button id="projectPostBtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트 저장</button>
     </div>
 
     <!-- Modal -->
@@ -278,25 +342,7 @@
 
     <!--프로젝트 카드-->
     <div class="projectCard">
-        <div class="row row-cols-1 row-cols-md-1 g-4">
-            <div class="card mb-3" style="width: 700px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b"
-                            class="img-fluid rounded-start" alt="프로젝트 사진">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">프로젝트명</h5>
-                            <p class="card-text">프로젝트 설명</p>
-                            <p class="card-text"><small class="text-muted">맡은 역할</small></p>
-                            <p class="card-text"><small class="text-muted">프로젝트 진행 날짜</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-1 g-4">
+        <div id="card" class="row row-cols-1 row-cols-md-1 g-4">
             <div class="card mb-3" style="width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
