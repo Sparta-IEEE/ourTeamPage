@@ -191,10 +191,9 @@
         $('#projectPostBtn').click(async function () {
 
 
-            let post_image = document.getElementById('post_image').files[0];
-            let image_name = post_image.name;
+            let post_image = document.getElementById('post_image').files[0].name;
+            //let image_name = post_image.name;
             console.log('image' + post_image);
-            console.log('image_name'+image_name);
             console.log('제발');
 
             let post_title = $('#post_title').val();
@@ -308,7 +307,7 @@
         <div class="input-group">
             <form enctype="multipart/form-data">
                 <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload">
+                    name="upload[]" aria-label="Upload">
             </form>
             <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                 aria-label="Upload"> -->
