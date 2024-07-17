@@ -128,6 +128,12 @@
             align-items: center;
             justify-content: center;
         }
+        .projectCards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
         .projectCard img {
             max-height: 100%;
@@ -197,6 +203,7 @@
             console.log('image_name'+image_name);
             console.log('제발');
 
+            let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
@@ -213,6 +220,7 @@
             let storageRef=ref(storage,image_name);
 
             let doc = {
+                'post_img' : post_img,
                 'post_title': post_title,
                 'post_comment': post_comment,
                 'post_role': post_role,
@@ -221,6 +229,10 @@
 
             await addDoc(collection(db, "posting"), doc);
             await uploadBytes(storageRef, post_image).then((snapshot) => {
+                console.log(snapshot);
+                getDownloadURL(snapshot.ref).then((url)=>{
+                    console.log('image_url : ' + url);
+                });
                 console.log('uploaded!!!');
                 console.log(snapshot)
             });
@@ -259,6 +271,7 @@
             console.log(posting);
 
             //let post_image = posting['post_image'];
+            let post_img = posting['post_img'];
             let post_title = posting['post_title'];
             let post_comment = posting['post_comment'];
             let post_role = posting['post_role'];
@@ -268,7 +281,7 @@
             <div class="card mb-3" style="width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src=""
+                        <img src="${post_img}"
                             class="img-fluid rounded-start" alt="프로젝트 사진">
                     </div>
                     <div class="col-md-8">
@@ -357,49 +370,10 @@
             저장</button>
     </div>
 
-
-
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <!--프로젝트 카드-->
     <div class="projectCard">
         <div id="projectCards" class="row row-cols-1 row-cols-md-1 g-4">
-            <div class="card mb-3" style="width: 700px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b"
-                            class="img-fluid rounded-start" alt="프로젝트 사진">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">프로젝트명</h5>
-                            <p class="card-text">프로젝트 설명</p>
-                            <p class="card-text"><small class="text-muted">맡은 역할</small></p>
-                            <p class="card-text"><small class="text-muted">프로젝트 진행 날짜</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--Cards-->
         </div>
     </div>
 
