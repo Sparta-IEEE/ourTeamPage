@@ -164,6 +164,7 @@
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, uploadBytes } from "firebase/storage";
 
 
         // Firebase 구성 정보 설정
@@ -182,21 +183,23 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getFirestore(app);
+        const storage = getStorage(app);
 
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function(){
 
-            //let post_image=document.queryselector('#post_image').files[0];
+            let post_image=document.queryselector('#post_image').files[0];
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
             let post_date = $('#post_date').val();
 
-            //let storageRef = storage.ref();
-            //let image_path = storageRef.child('projectImage/'+ file.name);
-            //let image_upload = image_path.put(post_image) 
+            //이미지 저장경로 지정
+            let storageRef = storage.ref();
+            let image_path = storageRef.child('projectImage/'+ file.name);
+            //let image_upload = image_path.put(post_image)
 
+            //프로젝트 관련 text 자료(저장할 것들)
             let doc ={
                 //'post_image' : post_image,
                 'post_title' : post_title,
@@ -207,6 +210,9 @@
             };
 
             await addDoc(collection(db,"posting"),doc);
+            uploadBytes(image_path,post_image).then((snapshot)=>{
+                console.log('uploaded');
+            });
             alert('저장완료!');
             window.location.reload();
         })
@@ -216,11 +222,17 @@
             $('#projectPostingBox').toggle();
         })
 
+        // let test = await getDocs(collection(db,"members/nayuhwa/posting"));
+        // test.forEach((element) => {
+        //     let member = element.data();
+        //     console.log(member);
+        // });
+
         //저장된 데이터 가져와서 card 생성
         let docs = await getDocs(collection(db,"posting"));
         docs.forEach((doc) => {
             let posting = doc.data();
-            console.log(posting);
+            //console.log(posting);
 
             //let post_image = posting['post_image'];
             let post_title = posting['post_title'];
