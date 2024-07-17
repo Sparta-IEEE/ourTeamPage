@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Team Page</title>
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--BootStrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <style>
+        /*구글 폰트*/
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+        * {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        header {
+            background-color: #E7F0DC;
+            color: black;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav a img {
+            max-height: 100%;
+            max-width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 0px 10px 0px 10px
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .main {
+            background-color: #2E4A4A;
+            color: #FFFFFF;
+        }
+
+        .text {
+            padding: 30px;
+        }
+
+        .text-contianer {
+            align-items: center;
+            margin-right: 7vh;
+            margin-left: 6vh;
+        }
+
+        .section-container {
+            margin-left: 12vh;
+            margin-right: 12vh;
+            padding-top: 10vh;
+            padding-bottom: 10vh;
+            align-items: center;
+        }
+
+        .card {
+            margin: 4vh;
+        }
+
+        .rounded-circle {
+            padding: 20px;
+        }
+
+        .projectPostingBox {
+            width: 700px;
+            margin: 20px auto 20px auto;
+
+            box-shadow: 0px 0px 3px 0px #8ea18a;
+            border: 1px solid #D8EFD3;
+            padding: 20px;
+            border-radius: 5px;
+
+            background-color: #D8EFD3;
+
+        }
+
+        .projectPostingBox>button {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: end;
+        }
+
+        .btn {
+            background-color: #FFA62F;
+            margin-left: auto;
+        }
+
+        .btn:hover {
+            color: #fff;
+            background-color: #FF6500;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .projectCard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .projectCard img {
+            max-height: 100%;
+            max-width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .projectHeader {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 50px;
+        }
+
+        .projectHeader button {
+            border: transparent;
+            background-color: transparent;
+
+            float: right;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            /* 이미지 비율 유지 크기 조정 */
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            /* 수직 가운데 정렬 */
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-left: 50px;
+        }
+
+        .profile-box {
+            padding: 100px;
+            border-radius: 10px;
+        }
+
+        .profile-info img:not(.blog-icon) {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+    }
+
+        .blog-icon{
+            width: 50px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+    </style>
+
+    <!--javascript-->
+    <script type="module">
+        
+    
+        document.getElementById('logo-link').addEventListener('click', function (event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+            location.href = 'index.html'; // main.html로 이동
+        });
+
+        // 로고 clikck > index 홈 화면 리셋 
+        $(document).ready(function () {
+            // 네비게이션 클릭 이벤트
+            $('.nav a').click(function (event) {
+                event.preventDefault();
+
+                // 모든 멤버 카드를 숨김
+                $('.profile-box').hide();
+
+                // 클릭한 멤버의 카드만 표시
+                const memberId = $(this).data('member');
+                $('#' + memberId).show();
+            });
+        });
+
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // Firebase 구성 정보 설정
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHdkrC7tf5QDQTyH8OwbQMHIPZk4wrH_M",
+            authDomain: "sparta-ieee-b36aa.firebaseapp.com",
+            projectId: "sparta-ieee-b36aa",
+            storageBucket: "sparta-ieee-b36aa.appspot.com",
+            messagingSenderId: "322597916014",
+            appId: "1:322597916014:web:c90c16432e74ad7a74057f",
+            measurementId: "G-Y9QR7ZE1HL"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = getFirestore(app);
+
+        //프로젝트 포스팅 박스 클릭시
+        $('#projectPostBtn').click(async function () {
+
+            //let post_image=document.queryselector('#post_image').files[0];
+            let post_title = $('#post_title').val();
+            let post_comment = $('#post_comment').val();
+            let post_role = $('#post_role').val();
+            let post_date = $('#post_date').val();
+
+            //let storageRef = storage.ref();
+            //let image_path = storageRef.child('projectImage/'+ file.name);
+            //let image_upload = image_path.put(post_image) 
+
+            let doc = {
+                //'post_image' : post_image,
+                'post_title': post_title,
+                'post_comment': post_comment,
+                'post_role': post_role,
+                'post_date': post_date
+
+            };
+
+            await addDoc(collection(db, "posting"), doc);
+            alert('저장완료!');
+            window.location.reload();
+        })
+
+        //포스팅 박스 토글
+        $('#savebtn').click(async function () {
+            $('#projectPostingBox').toggle();
+        })
+
+        //저장된 데이터 가져와서 card 생성
+        let docs = await getDocs(collection(db, "posting"));
+        docs.forEach((doc) => {
+            let posting = doc.data();
+            console.log(posting);
+
+            //let post_image = posting['post_image'];
+            let post_title = posting['post_title'];
+            let post_comment = posting['post_comment'];
+            let post_role = posting['post_role'];
+            let post_date = posting['post_date'];
+
+            let temp_html = `
+            <div class="card mb-3" style="width: 700px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src=""
+                            class="img-fluid rounded-start" alt="프로젝트 사진">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">${post_title}</h5>
+                            <p class="card-text">${post_comment}</p>
+                            <p class="card-text"><small class="text-muted">${post_role}</small></p>
+                            <p class="card-text"><small class="text-muted">${post_date}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            $('#projectCards').append(temp_html);
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <!--Nav bar-->
+    <header>
+        <div class="container">
+            <ul class="nav">
+                <li class="col-1" style="margin-right: 3vw;"><a href="#" id="logo-link"><img
+                            src="image/logo.png"></img></a></li>
+                <li class="col-1"><a href="#" data-member="suminCard">강수민</a></li>
+                <li class="col-1"><a href="#" data-member="yuhwaCard">나유화</a></li>
+                <li class="col-1"><a href="#" data-member="jinhyeokCard">남진현</a></li>
+                <li class="col-1"><a href="#" data-member="yeseoCard">박예서</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Team Member Header -->
+    <div class="projectHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Team Member</h2>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Team Member Header -->
+    <div class="container profile-box" id="suminCard" style="display: none;">
+        <div class="row no-gutters">
+            <div class="col-md-8 profile-simple">
+                <div class="profile-container">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/KakaoTalk_20240617_135847106.jpg?alt=media&token=18696593-7511-4821-8e3c-a6923714da80"
+                        alt="Profile Image" class="profile-img" />
+                    <div class="profile-info">
+                        <h1>강수민</h1>
+                        <h3>ESFJ</h3>
+                        <p>Back-end</p>
+                        <a href="mailto:min001117@gmail.com" target="_blak"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fmail_icon.png?alt=media&token=c09553b3-e861-40dd-8916-fa5d44d6e0b4h"></a>
+                        <a href="https://github.com/kang-sumin" target="_blank"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fgithub_icon.png?alt=media&token=004e9b22-7911-4c66-9ce0-a0537dd143a6"></a>
+                        <a href="https://susuhancodingworld.tistory.com/" target="_blank"> <img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fblog_icon.png?alt=media&token=f0462d70-942c-4af3-9c36-eed361e40f60" class="blog-icon"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container profile-box" id="yuhwaCard" style="display: none;">
+        <div class="row no-gutters">
+            <div class="col-md-8 profile-simple">
+                <div class="profile-container">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/profile_yuhwa(2).jpg?alt=media&token=1c5dd0e5-5521-4a3b-835c-69eba7532b19"
+                        alt="Profile Image" class="profile-img" />
+                    <div class="profile-info">
+                        <h1>나유화</h1>
+                        <h3>ENFJ</h3>
+                        <p>Back-end</p>
+                        <a href="mailto:nayuhwaa@gmail.com" target="_blak"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fmail_icon.png?alt=media&token=c09553b3-e861-40dd-8916-fa5d44d6e0b4h"></a>
+                        <a href="https://github.com/fargoe" target="_blank"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fgithub_icon.png?alt=media&token=004e9b22-7911-4c66-9ce0-a0537dd143a6"></a>
+                        <a href="https://fargoewave.tistory.com/" target="_blank"> <img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fblog_icon.png?alt=media&token=f0462d70-942c-4af3-9c36-eed361e40f60" class="blog-icon"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container profile-box" id="yeseoCard" style="display: none;">
+        <div class="row no-gutters">
+            <div class="col-md-8 profile-simple">
+                <div class="profile-container">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/profile_yeseo.jpg?alt=media&token=d3c154ea-534d-494d-822f-17171817ed74"
+                        alt="Profile Image" class="profile-img" />
+                    <div class="profile-info">
+                        <h1>박예서</h1>
+                        <h3>ENF</h3>
+                        <p>Back-end</p>
+                        <a href="mailto:theworldofyeseo@gmail.com" target="_blak"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fmail_icon.png?alt=media&token=c09553b3-e861-40dd-8916-fa5d44d6e0b4h"></a>
+                        <a href="https://github.com/rexRUBY" target="_blank"><img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fgithub_icon.png?alt=media&token=004e9b22-7911-4c66-9ce0-a0537dd143a6"></a>
+                        <a href="https://yeseo.site/" target="_blank"> <img
+                                src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fblog_icon.png?alt=media&token=f0462d70-942c-4af3-9c36-eed361e40f60" class="blog-icon"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container profile-box" id="jinhyeokCard" style="display: none;">
+        <div class="row no-gutters">
+            <div class="col-md-8 profile-simple">
+                <div class="profile-container">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/KakaoTalk_20240716_164338315.jpg?alt=media&token=2311d01c-b1c8-4e9c-aaed-6b5ad165c71c9"
+                        alt="Profile Image" class="profile-img" />
+                    <div class="profile-info">
+                        <h1>남진현</h1>
+                        <h3>ISTJ</h3>
+                        <p>Back-end</p>
+                        <a href="mailto:skawlsgus5@gmail.com" target="_blak"><img
+                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fmail_icon.png?alt=media&token=c09553b3-e861-40dd-8916-fa5d44d6e0b4h"></a>
+                    <a href="https://github.com/ackrilll" target="_blank"><img
+                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fgithub_icon.png?alt=media&token=004e9b22-7911-4c66-9ce0-a0537dd143a6"></a>
+                    <a href="https://blog.naver.com/skawlsgus2" target="_blank"> <img
+                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fblog_icon.png?alt=media&token=f0462d70-942c-4af3-9c36-eed361e40f60" class="blog-icon"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
