@@ -160,7 +160,7 @@
     <script type="module">
 
         // Firebase SDK 라이브러리 가져오기        
-        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
@@ -210,7 +210,7 @@
             // console.log('uploaded!!!');
             // console.log(image_upload);
 
-            let storageRef=ref(storage,'some-child');
+            let storageRef=ref(storage,image_name);
 
             let doc = {
                 'post_title': post_title,
@@ -227,6 +227,25 @@
             alert('저장완료!');
             window.location.reload();
         })
+
+        // getDownloadURL(ref(storage,'images/some-child.png')).
+        // then((url)=>{
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.onload = (event) =>{
+        //         const blob = xhr.response;
+        //     };
+        //     xhr.open('GET',url);
+        //     xhr.send();
+
+        //     const img = document.getElementById('myimg');
+        //     img.setAttribute('src',url);
+        // })
+        // .catch((error)=>{
+        //     alert('이미지 안불러와져~~ㅠㅠ');
+        // });
+
+        // let downStoragePhotoUrl=await getDownloadURL(ref(storage));
+        // console.log(downStoragePhotoUrl);
 
         //포스팅 박스 토글
         $('#savebtn').click(async function () {
