@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Team Page</title>
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- FullCalendar -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- CSS -->
+    <style>
+        header {
+            background-color: #E7F0DC;
+            color: black;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav a img {
+            max-height: 100%;
+            max-width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav li b {
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .main {
+            background-color: #2E4A4A;
+            color: #FFFFFF;
+        }
+
+        .text {
+            padding: 30px;
+        }
+
+        .text-contianer {
+            align-items: center;
+            margin-right: 7vh;
+            margin-left: 6vh;
+        }
+
+        .section-container {
+            margin-left: 12vh;
+            margin-right: 12vh;
+            padding-top: 10vh;
+            padding-bottom: 10vh;
+            align-items: center;
+        }
+
+        .card {
+            margin: 4vh;
+        }
+
+        .rounded-circle {
+            padding: 20px;
+        }
+
+        .topHeader {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1600px;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* 가운데 정렬 */
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-left: 30px;
+            flex: 1;
+            max-width: 50%;
+            /* 적절한 너비 설정 */
+        }
+
+        .calendar-container {
+            margin-left: 20px;
+            flex-shrink: 0;
+            width: 300px;
+            /* 고정된 너비 */
+        }
+
+        .profile-box {
+            padding: 50px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-info img:not(.blog-icon) {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .blog-icon {
+            width: 50px;
+            height: 40px;
+            margin-right: 25px;
+        }
+
+        #calendar {
+            width: 300px;
+
+            margin-right: 90px;
+            float: right;
+        }
+
+        /* FullCalendar 스타일 커스터마이징 */
+        .fc-toolbar {
+            color: #000000;
+            size: 8px;
+        }
+
+        .fc-daygrid-day {
+            
+            /* 날짜 셀 배경 색상 변경 */
+            border: 1px solid #E7F0DC;
+            /* 날짜 셀 테두리 색상 변경 */
+        }
+
+        .fc-daygrid-event {
+            background-color: #FF9800;
+            color: white;
+            border: none;
+            padding: 2px 4px;
+
+        }
+
+        .fc-daygrid-day-number {
+            color: black;
+        }
+
+
+        .fc .fc-toolbar-chunk .fc-button:hover {
+            background-color: #FFA62F;
+            /* 버튼 호버 시 배경 색상 */
+            border-color: #FFA62F;
+            /* 버튼 호버 시 테두리 색상 */
+            padding: px;
+            
+        }
+
+        .fc .fc-toolbar-chunk .fc-button:active {
+            background-color: #FF6500;
+            /* 버튼 클릭 시 배경 색상 */
+            border-color: #FF6500;
+            /* 버튼 클릭 시 테두리 색상 */
+        }
+
+        .fc .fc-toolbar-chunk .fc-button:focus {
+            box-shadow: none;
+            /* 버튼 포커스 시 그림자 제거 */
+        }
+
+        /* 월과 년도 글자 크기 줄이기 */
+        .fc-toolbar-title {
+            font-size: 15px !important;
+            /* 월과 년도 글자 크기 */
+        }
+
+        /* FullCalendar 버튼 스타일 커스터마이징 */
+        .fc .fc-toolbar-chunk .fc-button {
+            background-color: #ffffff;
+            /* 버튼 배경 색상 */
+            border: none;
+            /* 버튼 테두리 색상 */
+            color: black;
+            /* 버튼 텍스트 색상 */
+            font-size: 13px;
+            /* 버튼 텍스트 크기 */
+            padding: 5px 0px;
+            /* 버튼 패딩 */
+        }
+
+        /* 투데이 버튼의 색상과 크기 조절 */
+        .fc-today-button {
+            background-color: #E7F0DC;
+            /* 배경 색상 */
+            border-color: #E7F0DC;
+            /* 테두리 색상 */
+            color: white;
+            /* 텍스트 색상 */
+            font-size: 14px;
+            /* 텍스트 크기 */
+            padding: 8px 16px;
+            /* 버튼 패딩 */
+        }
+
+        .fc-today-button:hover {
+            background-color: #45a049;
+            /* 호버 시 배경 색상 */
+            border-color: #45a049;
+            /* 호버 시 테두리 색상 */
+        }
+
+        .fc-today-button:active {
+            background-color: #FF6500;
+            /* 클릭 시 배경 색상 */
+            border-color: #FF6500;
+            /* 클릭 시 테두리 색상 */
+        }
+    </style>
+    <!--BootStrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!--javascript-->
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Firebase 구성 정보 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHdkrC7tf5QDQTyH8OwbQMHIPZk4wrH_M",
+            authDomain: "sparta-ieee-b36aa.firebaseapp.com",
+            projectId: "sparta-ieee-b36aa",
+            storageBucket: "sparta-ieee-b36aa.appspot.com",
+            messagingSenderId: "322597916014",
+            appId: "1:322597916014:web:c90c16432e74ad7a74057f",
+            measurementId: "G-Y9QR7ZE1HL"
+        };
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Firebase에서 멤버 데이터 로드
+        async function getMemberData(memberName) {
+            const membersCollection = collection(db, "members");
+            const q = query(membersCollection, where("name", "==", memberName));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                const memberData = doc.data();
+                displayMemberCard(memberData);
+            });
+        }
+
+        // Firebase의 생일 데이터 변환 (월,일)
+        function formatBirthday(date) {
+            const month = date.substring(0, 2);
+            const day = date.substring(2, 4);
+            return { month, day };
+        }
+
+
+        // 멤버 카드를 화면에 표시하는 함수
+        function displayMemberCard(data) {
+            const profileBox = document.querySelector(".profile-box");
+            profileBox.innerHTML = `
+                <div class="row no-gutters">
+                    <div class="col-md-8 profile-simple">
+                        <div class="profile-container">
+                            <img src="${data.img}" alt="Profile Image" class="profile-img" />
+                            <div class="profile-info">
+                                <h1>${data.name}</h1>
+                                <h3>${data.mbti}</h3>
+                                <p>${data.task}</p>
+                                <a href="mailto:${data.email}" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fmail_icon.png?alt=media&token=c09553b3-e861-40dd-8916-fa5d44d6e0b4"></a>
+                                <a href="${data.github}" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fgithub_icon.png?alt=media&token=004e9b22-7911-4c66-9ce0-a0537dd143a6"></a>
+                                <a href="${data.blog}" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/icon%2Fblog_icon.png?alt=media&token=f0462d70-942c-4af3-9c36-eed361e40f60" class="blog-icon"></a>
+                            </div>
+                            <div class="calendar-container">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+
+            // FullCalendar 초기화
+            const calendarEl = document.getElementById('calendar');
+            const events = [];
+            const currentYear = new Date().getFullYear();
+            const { month, day } = formatBirthday(data.date);
+
+            // 매년 생일 이벤트 추가
+            for (let year = currentYear; year <= currentYear + 10; year++) {
+                events.push({
+                    title: 'BD',
+                    start: `${year}-${month}-${day}`
+                });
+            }
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                height: 'auto', // 높이를 자동으로 조정하여 스크롤 제거
+                events: events,
+                dayMaxEventRows: true, // 날짜 셀에 표시할 수 있는 최대 이벤트 수
+                views: {
+                    dayGridMonth: {
+                        dayMaxEventRows: 5 // 필요에 따라 조정 가능
+                    }
+                }
+            });
+            calendar.render();
+        }
+
+        // 네비게이션 링크에 클릭 이벤트 추가
+        document.addEventListener("DOMContentLoaded", () => {
+            const navLinks = document.querySelectorAll(".nav li b");
+            navLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    const memberName = e.target.textContent;
+                    getMemberData(memberName);
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="container">
+            <ul class="nav">
+                <li class="col-1" style="margin-right: 3vw;"><a href="index.html"><img src="image/logo.png"></a></li>
+                <li class="col-1"><b>강수민</b></li>
+                <li class="col-1"><b>나유화</b></li>
+                <li class="col-1"><b>남진현</b></li>
+                <li class="col-1"><b>박예서</b></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Team Member Header -->
+    <div class="topHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Team Member</h2>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container profile-box">
+        <!-- 멤버카드표시-->
+    </div>
+</body>
+
+</html>

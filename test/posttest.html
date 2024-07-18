@@ -7,17 +7,8 @@
     <title>IEEE Team Page</title>
     <link rel="icon" href="image/favicon.ico" type="image/x-icon">
 
-    <!--JQuery-->
+    <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--BootStrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
     <!-- FullCalendar -->
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
@@ -25,10 +16,9 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <!-- CSS -->
     <style>
-        /*구글 폰트*/
+        /* 구글 폰트 추가 */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
         * {
@@ -58,7 +48,7 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.1em;
-            margin: 0px 10px 0px 10px
+            margin: 0px 10px 0px 10px;
         }
 
         .nav a {
@@ -97,83 +87,7 @@
             padding: 20px;
         }
 
-
-        .projectPostingBox {
-            width: 700px;
-            margin: 20px auto 20px auto;
-
-            box-shadow: 0px 0px 3px 0px #8ea18a;
-            border: 1px solid #D8EFD3;
-            padding: 20px;
-            border-radius: 5px;
-
-            background-color: #D8EFD3;
-
-        }
-
-        .projectPostingBox>button {
-            display: flex;
-            flex-direction: column;
-            align-items: end;
-            justify-content: end;
-        }
-
-        .btn {
-            background-color: #FFA62F;
-            margin-left: auto;
-        }
-
-        .btn:hover {
-            color: #fff;
-            background-color: #FF6500;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .projectCard {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .projectCards {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .projectCard img {
-            max-height: 100%;
-            max-width: 100%;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        .projectHeader {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-
-            margin-top: 20px;
-        }
-
-        .projectHeader button {
-            border: transparent;
-            background-color: transparent;
-
-            float: right;
-        }
-      
-      .topHeader,
-        .projectHeader {
+        .topHeader, .projectHeader {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -246,124 +160,105 @@
 
         .fc-daygrid-day {
             background-color: #E7F0DC;
+            /* 날짜 셀 배경 색상 변경 */
             border: 1px solid #ddd;
-            text-align: center;
-            /* 일 글자 중앙 정렬 */
+            /* 날짜 셀 테두리 색상 변경 */
         }
 
         .fc-daygrid-event {
             background-color: #FF9800;
+            /* 이벤트 배경 색상 변경 */
             color: white;
+            /* 이벤트 텍스트 색상 변경 */
             border: none;
+            /* 이벤트 테두리 둥글게 */
             padding: 2px 4px;
+            /* 이벤트 패딩 */
         }
 
         .fc-daygrid-day-number {
             color: black;
-            text-decoration: none;
-            /* 날짜 숫자 밑줄 제거 */
-            text-align: center;
-            /* 날짜 숫자 중앙 정렬 */
+            /* 날짜 숫자 색상 변경 */
         }
 
         .fc .fc-toolbar-chunk .fc-button:hover {
             background-color: #FFA62F;
+            /* 버튼 호버 시 배경 색상 */
             border-color: #FFA62F;
         }
 
         .fc .fc-toolbar-chunk .fc-button:active {
             background-color: #3e8e41;
+            /* 버튼 클릭 시 배경 색상 */
             border-color: #3e8e41;
+            /* 버튼 클릭 시 테두리 색상 */
         }
 
         .fc .fc-toolbar-chunk .fc-button:focus {
             box-shadow: none;
+            /* 버튼 포커스 시 그림자 제거 */
         }
 
+        /* 월과 년도 글자 크기 줄이기 */
         .fc-toolbar-title {
             font-size: 15px !important;
-            text-decoration: none;
-            /* 월과 년도 밑줄 제거 */
+            /* 월과 년도 글자 크기 */
         }
 
+        /* FullCalendar 버튼 스타일 커스터마이징 */
         .fc .fc-toolbar-chunk .fc-button {
             background-color: #ffffff;
+            /* 버튼 배경 색상 */
             border: none;
+            /* 버튼 테두리 색상 */
             color: black;
+            /* 버튼 텍스트 색상 */
             font-size: 13px;
+            /* 버튼 텍스트 크기 */
             padding: 5px 0px;
-            text-decoration: none;
-            /* 버튼 텍스트 밑줄 제거 */
+            /* 버튼 패딩 */
         }
 
+        /* 투데이 버튼의 색상과 크기 조절 */
         .fc-today-button {
             background-color: #4CAF50;
+            /* 배경 색상 */
             border-color: #4CAF50;
+            /* 테두리 색상 */
             color: white;
+            /* 텍스트 색상 */
             font-size: 14px;
+            /* 텍스트 크기 */
             padding: 8px 16px;
-            text-decoration: none;
-            /* 투데이 버튼 텍스트 밑줄 제거 */
+            /* 버튼 패딩 */
         }
 
         .fc-today-button:hover {
             background-color: #45a049;
+            /* 호버 시 배경 색상 */
             border-color: #45a049;
+            /* 호버 시 테두리 색상 */
         }
 
         .fc-today-button:active {
             background-color: #3e8e41;
+            /* 클릭 시 배경 색상 */
             border-color: #3e8e41;
+            /* 클릭 시 테두리 색상 */
         }
-
-        /* 요일 글자 중앙 정렬, 밑줄 제거, 색상 변경 */
-        .fc-col-header-cell-cushion {
-            text-align: center;
-            text-decoration: none;
-            /* 요일 밑줄 제거 */
-            color: black;
-            /* 요일 글자 색상 변경 */
-        }
-
-        /* 달력 높이 조절 */
-        #calendar {
-            width: 400px;
-            height: 500px;
-            /* 원하는 높이로 설정 */
-            margin-right: 90px;
-            float: right;
-        }
-
-        .fc-scroller-harness,
-        .fc-scroller-harness-liquid,
-        .fc-scroller,
-        .fc-daygrid,
-        .fc-daygrid-body {
-            height: 100% !important;
-            /* 내부 요소 높이 조절 */
-        }
-  </style>
-      <!-- Bootstrap -->
+    </style>
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
-    <!--javascript-->
+    <!-- JavaScript -->
     <script type="module">
-
-        // Firebase SDK 라이브러리 가져오기        
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+        // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        
-
-
-
+        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
         // Firebase 구성 정보 설정
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyDHdkrC7tf5QDQTyH8OwbQMHIPZk4wrH_M",
             authDomain: "sparta-ieee-b36aa.firebaseapp.com",
@@ -374,12 +269,10 @@
             measurementId: "G-Y9QR7ZE1HL"
         };
 
-
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const storage = getStorage(app);
-
 
         // Firebase에서 멤버 데이터 로드
         async function getMemberData(memberName) {
@@ -428,7 +321,7 @@
             const currentYear = new Date().getFullYear();
             const { month, day } = formatBirthday(data.date);
 
-            // 생일 이벤트
+            // 매년 생일 이벤트 추가
             for (let year = currentYear; year <= currentYear + 10; year++) {
                 events.push({
                     title: 'BD',
@@ -438,6 +331,7 @@
 
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
+                height: 'auto', // 높이를 자동으로 조정하여 스크롤 제거
                 events: events,
                 dayMaxEventRows: true, // 날짜 셀에 표시할 수 있는 최대 이벤트 수
                 views: {
@@ -460,61 +354,25 @@
             });
         });
 
-
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function () {
-
-            //포스팅 이미지 파일 들고옴
-            let post_image = document.getElementById('post_image').files[0];
-            let image_name = post_image.name;
-            console.log('image' + post_image);
-            console.log('image_name' + image_name);
-            console.log('제발');
-
-            //DB에 전달할 값들
-            let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
-            let post_password=$('#post_password').val();
+            let post_image = document.querySelector('#post_image').files[0];
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
             let post_date = $('#post_date').val();
 
-            console.log(post_password, post_title, post_comment, post_role, post_date);
+            //이미지 저장경로 지정
+            let storageRef = ref(storage, 'projectImage/' + post_image.name);
 
-            // let storageRef = storage.ref();
-            // let image_path = storageRef.child('posting/' + image_name);
-            // let image_upload = image_path.put(post_image);
-            // console.log('uploaded!!!');
-            // console.log(image_upload);
-
-            let storageRef = ref(storage, image_name);
-
-            //DB에 전달할 값들 필드화
+            //프로젝트 관련 text 자료(저장할 것들)
             let doc = {
-                'post_img': post_img,
-                'post_password' : post_password,
                 'post_title': post_title,
                 'post_comment': post_comment,
                 'post_role': post_role,
                 'post_date': post_date
             };
 
-            //DB, Storage 업로드
-            await addDoc(collection(db, "posting"), doc);
-            await uploadBytes(storageRef, post_image).then((snapshot) => {
-                console.log(snapshot);
-                getDownloadURL(snapshot.ref).then((url) => {
-                    console.log('image_url : ' + url);
-                });
-                console.log('uploaded!!!');
-                console.log(snapshot)
-            });
-            alert('저장완료!');
-            window.location.reload();
-        })
-
-
-=======
             await addDoc(collection(db, "posting"), doc);
             await uploadBytes(storageRef, post_image).then((snapshot) => {
                 console.log('uploaded');
@@ -523,14 +381,16 @@
             window.location.reload();
         });
 
+        //포스팅 박스 토글
+        $('#savebtn').click(async function () {
+            $('#projectPostingBox').toggle();
+        });
+
         //저장된 데이터 가져와서 card 생성
         let docs = await getDocs(collection(db, "posting"));
         docs.forEach((doc) => {
             let posting = doc.data();
-            console.log(posting);
 
-            //let post_image = posting['post_image'];
-            let post_img = posting['post_img'];
             let post_title = posting['post_title'];
             let post_comment = posting['post_comment'];
             let post_role = posting['post_role'];
@@ -540,7 +400,7 @@
             <div class="card mb-3" style="width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="${post_img}"
+                        <img src=""
                             class="img-fluid rounded-start" alt="프로젝트 사진">
                     </div>
                     <div class="col-md-8">
@@ -555,13 +415,11 @@
             </div>`;
             $('#projectCards').append(temp_html);
         });
-
     </script>
 </head>
 
 <body>
-
-    <!--Nav bar-->
+    <!-- 헤더 -->
     <header>
         <div class="container">
             <ul class="nav">
@@ -592,15 +450,13 @@
         <!-- 멤버카드표시-->
     </div>
 
-
-    <!--Project 영역 (헤더,프로젝트 포스팅 박스, 프로젝트 카드)-->
-
+    <!-- Project 영역 (헤더, 프로젝트 포스팅 박스, 프로젝트 카드) -->
     <div class="projectHeader">
         <div style="width:70%;">
             <div>
                 <div>
                     <h2>Project
-                        <button id="savebtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <button id="savebtn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -614,50 +470,11 @@
         </div>
     </div>
 
-    <!--프로젝트 포스팅 박스-->
-    <div class="collapse" id="collapseExample">
-        <div class="projectPostingBox" id="projectPostingBox">
-            <div class="input-group">
-                <form enctype="multipart/form-data" >
-                    <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
-                        aria-label="Upload" >
-                </form>
-                <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload"> -->
-                <div class="form-floating mb-3">
-                    <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
-                    <label for="floatingInput">비밀번호</label>
-                </div>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
-                <label for="floatingInput">프로젝트명</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="post_comment" class="form-control" id="post_comment" placeholder="프로젝트 설명">
-                <label for="floatingInput">프로젝트 설명</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="post_role" class="form-control" id="post_role" placeholder="맡은 역할">
-                <label for="floatingInput">맡은 역할</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="post_date" class="form-control" id="post_date" placeholder="프로젝트 진행 날짜">
-                <label for="floatingInput">프로젝트 진행 날짜</label>
-            </div>
-            <button id="projectPostBtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트
-                저장</button>
-        </div>
-    </div>
-    
+    <!-- 프로젝트 포스팅 박스 -->
+    <!-- 제거됨 -->
 
-    <!--프로젝트 카드-->
-    <div class="projectCard">
-        <div id="projectCards" class="row row-cols-1 row-cols-md-1 g-4">
-            <!--Cards-->
-        </div>
-    </div>
-
+    <!-- 프로젝트 카드 -->
+    <!-- 제거됨 -->
 </body>
 
 </html>
