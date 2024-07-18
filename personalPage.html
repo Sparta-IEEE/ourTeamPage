@@ -367,7 +367,7 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
+        var storage = getStorage();
 
 
         // Firebase에서 멤버 데이터 로드
@@ -481,7 +481,7 @@
             console.log('제발');
 
             //DB에 전달할 값들
-            let post_img = 'test';
+            let post_img = "";
             let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
@@ -490,14 +490,25 @@
 
             console.log(post_password, post_title, post_comment, post_role, post_date);
 
-            // let storageRef = storage.ref();
-            // let image_path = storageRef.child('posting/' + image_name);
-            // let image_upload = image_path.put(post_image);
-            // console.log('uploaded!!!');
-            // console.log(image_upload);
-
             let storageRef = ref(storage, image_name);
 
+
+            //DB, Storage 업로드
+            await uploadBytes(storageRef, post_image).then((snapshot) => {
+                alert('작동함???');
+                console.log('uploaded!!!');
+
+            });
+            await getDownloadURL(ref(storage, image_name))
+                .then((url) => {
+                    alert(post_img);
+                    post_img = url;
+                    alert(post_img);
+                })
+                .catch((error) => {
+                    alert("뭐가 문제?");
+                });
+            console.log("===========================");
             //DB에 전달할 값들 필드화
             let doc = {
                 'post_img': post_img,
@@ -507,32 +518,8 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
-
-            //DB, Storage 업로드
             await addDoc(collection(db, "posting"), doc);
-            await uploadBytes(storageRef, post_image).then((snapshot) => {
 
-                console.log(snapshot);
-                getDownloadURL(snapshot.ref).then((url) => {
-                    console.log('image_url : ' + url);
-                    doc.post_img = url;
-                });
-                console.log('uploaded!!!');
-                console.log(snapshot)
-
-            });
-            console.log("===========================");
-            getDownloadURL(storageRef)
-                .then((url) => {
-                    console.log('*********URL : ' + url);
-                })
-                .catch((error) => {
-                    alert('오류발생!!!!!!!!!!!!!!!')
-                });
-
-            console.log(doc)
-            console.log(doc.post_image);
-            alert(doc.post_image);
             window.location.reload();
         });
 
@@ -551,6 +538,8 @@
             let post_comment = posting['post_comment'];
             let post_role = posting['post_role'];
             let post_date = posting['post_date'];
+
+            console.log(post_img, post_password, post_title, post_comment, post_role, post_date);
 
             let temp_html = `
             <div class="card mb-3" style="width: 700px;">
@@ -643,7 +632,7 @@
                 </form>
                 <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload"> -->
-                
+
             </div>
             <div class="form-floating mb-3">
                 <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
