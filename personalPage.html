@@ -511,17 +511,8 @@
             });
             alert('저장완료!');
             window.location.reload();
-        })
-
-
-=======
-            await addDoc(collection(db, "posting"), doc);
-            await uploadBytes(storageRef, post_image).then((snapshot) => {
-                console.log('uploaded');
-            });
-            alert('저장완료!');
-            window.location.reload();
         });
+
 
         //저장된 데이터 가져와서 card 생성
         let docs = await getDocs(collection(db, "posting"));
