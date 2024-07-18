@@ -64,44 +64,51 @@
 
         .card {
             margin: 4vh;
+            background-color: #E7F0DC;
+            border: none;
         }
 
         .rounded-circle {
             padding: 20px;
         }
+
+        .comment-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-text {
+            margin-left: 10px;
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .comment-actions .btn {
+            margin-left: 5px;
+        }
+
+        .like {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .like img {
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .comment-body {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
-  <!--BootStrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <!--javascript-->
-    <script type="module">
-
-        // Firebase SDK 라이브러리 가져오기
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-
-        // Firebase 구성 정보 설정
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyDHdkrC7tf5QDQTyH8OwbQMHIPZk4wrH_M",
-          authDomain: "sparta-ieee-b36aa.firebaseapp.com",
-          projectId: "sparta-ieee-b36aa",
-          storageBucket: "sparta-ieee-b36aa.appspot.com",
-          messagingSenderId: "322597916014",
-          appId: "1:322597916014:web:c90c16432e74ad7a74057f",
-          measurementId: "G-Y9QR7ZE1HL"
-        };
-
-
-        // Firebase 인스턴스 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-    </script>
 </head>
 
 <body>
@@ -121,7 +128,7 @@
     <!-- 메인 -->
     <section class="main">
         <div class="text-contianer row">
-            <div class="col-5 text">
+            <div class="col-4 text">
                 <h1>IEEE</h1><br>
                 <h5 style="line-height : 1.9;">
                     팀원들의 MBTI의 앞글자를 따서 IEEE로 작명하게 되었습니다. IEEE는 (Institute of Electrical and Electronics Engineers)로
@@ -133,8 +140,8 @@
                     저녁시간<br>18:00 ~ 19:00
                 </h5>
             </div>
-            <div class="col-7">
-                <img src="image/background.png" alt="IEEE 팀 이미지">
+            <div class="col-7" style="height: 70vh;">
+                <img src="image/background.gif" alt="IEEE 팀 이미지" style="background-size:cover;height: 70vh;">
             </div>
         </div>
     </section>
@@ -142,40 +149,40 @@
     <!-- 카드 -->
     <section class="section-container">
         <div class="row">
-            <div class="card col" style="width: 18rem;">
+            <div class="card col shadow" style="width: 18rem;" onclick="goToPersonalPage('강수민')">
                 <img src="https://ca.slack-edge.com/T06B9PCLY1E-U077PDWS5MZ-ae6458e40e0f-512"
                     class="card-img-top rounded-circle" alt="강수민">
                 <div class="card-body text-center">
                     <h5 class="card-title"><b>강수민</b></h5>
-                    <p class="card-text">MBTI</p>
-                    <p class="card-text">각오 한마디</p>
+                    <p class="card-text">ESFJ</p>
+                    <p class="card-text">손이 없으면 이로</p>
                 </div>
             </div>
-            <div class="card col" style="width: 18rem;">
+            <div class="card col shadow" style="width: 18rem;" onclick="goToPersonalPage('나유화')">
                 <img src="https://ca.slack-edge.com/T06B9PCLY1E-U075JR99LUE-e0bf2605504e-512"
                     class="card-img-top rounded-circle" alt="나유화">
                 <div class="card-body text-center">
                     <h5 class="card-title"><b>나유화</b></h5>
-                    <p class="card-text">MBTI</p>
-                    <p class="card-text">각오 한마디</p>
+                    <p class="card-text">ENFJ</p>
+                    <p class="card-text">이가 없으면 잇몸으로</p>
                 </div>
             </div>
-            <div class="card col" style="width: 18rem;">
+            <div class="card col shadow" style="width: 18rem;" onclick="goToPersonalPage('남진현')">
                 <img src="https://ca.slack-edge.com/T06B9PCLY1E-U075HR8AP0B-7831a1dda1b0-512"
                     class="card-img-top rounded-circle" alt="남진현">
                 <div class="card-body text-center">
                     <h5 class="card-title"><b>남진현</b></h5>
-                    <p class="card-text">MBTI</p>
-                    <p class="card-text">각오 한마디</p>
+                    <p class="card-text">ISTJ</p>
+                    <p class="card-text">잇몸이 없으면 뼈로</p>
                 </div>
             </div>
-            <div class="card col" style="width: 18rem;">
-                <img src="https://ca.slack-edge.com/T06B9PCLY1E-U0737SKUL93-6423d971606f-512"
+            <div class="card col shadow" style="width: 18rem;" onclick="goToPersonalPage('박예서')">
+                <img src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/profile_yeseo.jpg?alt=media&token=d3c154ea-534d-494d-822f-17171817ed74"
                     class="card-img-top rounded-circle" alt="박예서">
                 <div class="card-body text-center">
                     <h5 class="card-title"><b>박예서</b></h5>
-                    <p class="card-text">MBTI</p>
-                    <p class="card-text">각오 한마디</p>
+                    <p class="card-text">ENTP</p>
+                    <p class="card-text">뼈가 없으면 가죽으로</p>
                 </div>
             </div>
         </div>
@@ -183,21 +190,423 @@
 
     <!-- 댓글 -->
     <section>
-        <h2>Comments</h2>
-        <hr style="width: 70%;">
-        <div class="section-container">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <div class="container">
+            <h2>Comments</h2>
+            <hr style="height: 2px;">
+            <!-- 댓글 달기 -->
+            <div class="card shadow" style="padding: 30px; margin-bottom: 70px;">
+                <div class="row g-2 mb-3">
+                    <!-- 이름 -->
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="name" placeholder="이름">
+                            <label for="name">이름</label>
+                        </div>
+                    </div>
+                    <!-- 비밀번호 -->
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" placeholder="비밀번호">
+                            <label for="password">비밀번호</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 내용 -->
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="댓글을 작성해주세요." id="comment"
+                        style="height: 100px"></textarea>
+                    <label for="comment">댓글</label>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" id="addComment" class="btn btn-primary"
+                        style="background-color: #FF6500; border: none;">작성하기</button>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+
+            <!-- 댓글들 -->
+            <section id="comments-section">
+                <!-- 댓글이 추가될 공간입니다. -->
+            </section>
+
+            <!-- 페이지네이션 -->
+            <nav style="margin-top: 6vh;">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled" id="prev-page">
+                        <a class="page-link">이전 페이지</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" style="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#" style="">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#" style="">3</a></li>
+                    <li class="page-item" id="next-page">
+                        <a class="page-link" href="#">다음 페이지</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 
-   
+    <!-- 파이어베이스 관련 함수-->
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // Firebase 구성 정보 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHdkrC7tf5QDQTyH8OwbQMHIPZk4wrH_M",
+            authDomain: "sparta-ieee-b36aa.firebaseapp.com",
+            projectId: "sparta-ieee-b36aa",
+            storageBucket: "sparta-ieee-b36aa.appspot.com",
+            messagingSenderId: "322597916014",
+            appId: "1:322597916014:web:c90c16432e74ad7a74057f",
+            measurementId: "G-Y9QR7ZE1HL"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+
+        /*
+         **************************
+         댓글 초기화 함수
+         **************************
+         */
+        var commentsArr = [];
+        async function initComments() {
+            const commentsSection = document.getElementById('comments-section');
+            commentsSection.innerHTML = '';
+
+            try {
+                const query = await getDocs(collection(db, 'comments'));
+                query.forEach((doc) => {
+                    const comment = doc.data();
+                    const commentTemplate = `
+                <div class="card shadow mb-3">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="comment-content">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User Avatar">
+                            <div class="comment-text">
+                                <h5 class="card-title mb-1">${comment.name}</h5>
+                                <p class="card-text mb-0">${comment.comment}</p>
+                            </div>
+                        </div>
+                        <div class="comment-actions">
+                            <div class="like" style="margin-right: 3vh;" id="like" data-id="${doc.id}">
+                                <img src="image/thumbs-up.svg" data-id="${doc.id}" alt="Like" width="25" height="25">
+                                <span id="like-cnt">${comment.like}</span>
+                            </div>
+                            <button data-id="${doc.id}" class="btn up-to-date" style="background-color: #FFA62F;">수정</button>
+                            <button data-id="${doc.id}" class="btn delete btn-warning">삭제</button>
+                        </div>
+                    </div>
+                </div>`;
+                    commentsArr.push(commentTemplate);
+                    commentsSection.innerHTML += commentTemplate;
+
+                    paging();
+                    renderPagination();
+                });
+            } catch (error) {
+                console.error("Error fetching comments: ", error);
+            }
+        }
+
+
+
+        /*
+         **************************
+         댓글 수정 함수
+         **************************
+         */
+        async function updateComment(id, updatedComment, password) {
+            const docRef = doc(db, "comments", id);
+            try {
+                //비밀번호 확인
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    if (docSnap.data().password !== password) {
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return;
+                    }
+                } else {
+                    alert("존재하지 않는 댓글입니다.");
+                    return;
+                }
+
+                //댓글 업데이트
+                await updateDoc(docRef, {
+                    comment: updatedComment
+                });
+                alert("댓글이 업데이트되었습니다.");
+                window.location.reload();
+            } catch (error) {
+                alert("댓글을 업데이트하는 중에 오류가 발생했습니다.");
+                console.error("Error updating document: ", error);
+            }
+        }
+
+
+
+        /*
+         **************************
+         댓글 삭제 함수
+         **************************
+         */
+        async function deleteComment(id, password) {
+            const docRef = doc(db, "comments", id);
+            try {
+                //비밀번호 확인
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    if (docSnap.data().password !== password) {
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return;
+                    }
+                } else {
+                    alert("존재하지 않는 댓글입니다.");
+                    return;
+                }
+
+                //댓글 삭제
+                await deleteDoc(docRef);
+                alert("댓글이 삭제되었습니다.");
+                window.location.reload();
+            } catch (error) {
+                alert("댓글을 삭제하는 중에 오류가 발생했습니다.");
+                console.error("Error deleting document: ", error);
+            }
+        }
+
+
+
+        /*
+         **************************
+            좋아요 업데이트 함수
+         **************************
+         */
+        async function updateLike(event, id) {
+            try {
+                let targetElement = event.target;
+
+                if (targetElement.tagName.toLowerCase() === 'img') {
+                    targetElement = event.target.nextElementSibling;
+                }
+
+                if (targetElement.tagName.toLowerCase() === 'span') {
+                    let likeCount = parseInt(targetElement.textContent);
+                    likeCount++;
+                    targetElement.textContent = likeCount;
+                    console.log('좋아요수:', likeCount);
+
+                    const docRef = doc(db, "comments", id);
+                    await updateDoc(docRef, {
+                        like: likeCount
+                    });
+                }
+            } catch (error) {
+                console.error("에러 발생: ", error);
+            }
+        }
+
+
+
+        /*
+         **************************
+            댓글 추가 함수
+         **************************
+         */
+        async function addComment() {
+            let name_ = document.getElementById('name').value;
+            let password_ = document.getElementById('password').value;
+            let comment_ = document.getElementById('comment').value;
+            let doc_id = '';
+
+            //무결성 검사
+            if (name_ === '' || password_ === '' || comment_ === '') {
+                alert("모든 항목을 입력해주세요.");
+                return;
+            }
+
+            //DB에 댓글 추가
+            try {
+                const docRef = await addDoc(collection(db, "comments"), {
+                    like: 0,
+                    name: name_,
+                    password: password_,
+                    comment: comment_
+                });
+                alert("댓글이 추가되었습니다.");
+                doc_id = docRef.id;
+
+                // 입력창 초기화
+                document.getElementById('name').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('comment').value = '';
+
+            } catch (error) {
+                alert("죄송합니다. 다시 시도해주세요. ");
+                console.error("Error writing document: ", error);
+            }
+
+            //댓글 추가
+            const commentsSection = document.getElementById('comments-section');
+            let commentTemplate = `<div class="card shadow mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="comment-content">
+                    <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User Avatar">
+                    <div class="comment-text">
+                        <h5 class="card-title mb-1">${name_}</h5>
+                        <p class="card-text mb-0">${comment_}</p>
+                    </div>
+                </div>
+                <div class="comment-actions">
+                    <div class="like" style="margin-right: 3vh;" id="like" data-id="${doc_id}">
+                        <img src="image/thumbs-up.svg" id="img" data-id="${doc_id}" alt="Like" width="25" height="25">
+                        <span id="like-cnt">0</span>
+                    </div>
+                    <button data-id="${doc_id}" type="button" class="btn up-to-date" style="background-color: #FFA62F;">수정</button>
+                    <button data-id="${doc_id}" type="button" class="btn delete btn-warning">삭제</button>
+                </div>
+            </div>
+        </div>`;
+            commentsSection.innerHTML += commentTemplate;
+
+            // 추가된 댓글로 스크롤 이동
+            const addedCommentElement = commentsSection.lastElementChild;
+            addedCommentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
+
+        /*
+         **************************
+         이벤트리스너 추가
+         **************************
+         */
+        document.addEventListener('DOMContentLoaded', (event) => {
+            initComments();
+
+            document.getElementById('addComment').addEventListener('click', addComment);
+            document.getElementById('prev-page').addEventListener('click', prevPage);
+            document.getElementById('next-page').addEventListener('click', nextPage);
+
+            const commentsSection = document.getElementById('comments-section');
+
+            //페이지 로드 타이밍이 맞지 않아서 이벤트 위임을 사용
+            commentsSection.addEventListener('click', (event) => {
+                if (event.target.classList.contains('up-to-date')) {
+                    var element = event.target.closest('.card');
+                    var doc_id = event.target.getAttribute('data-id');
+
+                    var newElement = document.createElement('div');
+                    newElement.classList.add('card', 'shadow', 'mb-3');
+                    newElement.innerHTML = `
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-11">
+                                    <input id="updated-comment" type="text" class="form-control col-7" id="comment" placeholder="수정할 댓글을 작성해주세요.">
+                                </div>
+                                <div class="col-1">
+                                    <button data-id="${doc_id}" type="button" class="btn update" style="background-color: #FFA62F;">완료</button>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    element.replaceWith(newElement);
+                } else if (event.target.classList.contains('update')) {
+                    const commentId = event.target.getAttribute('data-id');
+                    const updatedComment = document.getElementById('updated-comment').value;
+                    const password = prompt("비밀번호를 입력해주세요.");
+                    updateComment(commentId, updatedComment, password);
+                } else if (event.target.classList.contains('delete')) {
+                    const commentId = event.target.getAttribute('data-id');
+                    const password = prompt("비밀번호를 입력해주세요.");
+                    deleteComment(commentId, password);
+                } else if (event.target.closest('.like')) {
+                    const commentId = event.target.getAttribute('data-id');
+                    updateLike(event, commentId);
+                    event.target.src = "image/thumbs-up-fill.svg";
+                }
+            });
+        });
+
+
+
+        /*
+         **************************
+         페이지네이션 관련 함수
+         **************************
+         */
+        let commentsPerPage = 4; // 한 페이지에 표시할 댓글 수
+        let currentPage = 1; // 현재 페이지
+
+        function paging() {
+            const commentsSection = document.getElementById('comments-section');
+            commentsSection.innerHTML = ''; // 기존 댓글 제거
+
+            const start = (currentPage - 1) * commentsPerPage;
+            const end = start + commentsPerPage;
+            const paginatedComments = commentsArr.slice(start, end); // 현재 페이지의 댓글들
+
+            // 현재 페이지의 댓글들 추가
+            for (let comment of paginatedComments) {
+                commentsSection.innerHTML += comment;
+            }
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(commentsArr.length / commentsPerPage);
+            const pagination = document.querySelector('.pagination');
+
+            while (pagination.children.length > 2) {
+                pagination.removeChild(pagination.children[1]);
+            }
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = 'page-item' + (i === currentPage ? ' active' : '');
+                const pageLink = document.createElement('a');
+                pageLink.className = 'page-link';
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.onclick = function () {
+                    goToPage(i);
+                };
+                pageItem.appendChild(pageLink);
+                pagination.insertBefore(pageItem, pagination.children[pagination.children.length - 1]);
+            }
+
+            document.getElementById('prev-page').classList.toggle('disabled', currentPage === 1);
+            document.getElementById('next-page').classList.toggle('disabled', currentPage === totalPages);
+        }
+
+        function goToPage(page) {
+            if (page < 1 || page > Math.ceil(commentsArr.length / commentsPerPage)) return;
+            currentPage = page;
+            paging();
+            renderPagination();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < Math.ceil(commentsArr.length / commentsPerPage)) {
+                goToPage(currentPage + 1);
+            }
+        }
+    </script>
+    <script>
+        function goToPersonalPage(name) {
+            window.location.href = 'personalPage.html?name=' + encodeURIComponent(name);
+        }
+    </script>
 </body>
 
 </html>
