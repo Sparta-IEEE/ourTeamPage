@@ -369,8 +369,11 @@
         const db = getFirestore(app);
         var storage = getStorage();
 
+        // function reloadDivArea() {
+        //     $('#projectCards').load(window.location.href + ' #projectCards');
+        // }
 
-        var member_id ="";
+        var member_id = "";
         // Firebase에서 멤버 데이터 로드
         async function getMemberData(memberName) {
             const membersCollection = collection(db, "members");
@@ -380,10 +383,11 @@
                 const memberData = doc.data();
                 displayMemberCard(memberData);
                 console.log(memberData);
-                member_id=memberData['key'];
+                member_id = memberData['key'];
                 //window.location.reload();
+                $('#projectCards').load(window.location.href + ' #projectCards');
             });
-            console.log('key : '+member_id);
+            console.log('key : ' + member_id);
         }
 
         // Firebase의 생일 데이터 변환 (월,일)
@@ -506,18 +510,22 @@
                 'post_date': post_date
             };
             console.log("지금 들고올 id : ", member_id);
-            await addDoc(collection(db, "members",member_id,"posting"), doc);
+            await addDoc(collection(db, "members", member_id, "posting"), doc);
             //alert("하위 컬렉션 ??");
             alert("저장 완료 되었습니다!");
-            
+            //window.location.reload();
+            $('#projectCards').load(window.location.href + ' #projectCards');
+
+
         });
 
         //저장된 데이터 가져와서 card 생성
-        let docs = await getDocs(collection(db, "members", member_id,"posting"));
-        console.log('members :'+ docs.data);
+        let docs = await getDocs(collection(db, "members", member_id, "posting"));
+        $('#projectCards').load(window.location.href + ' #projectCards');
+        console.log('members :' + docs.data);
         docs.forEach((doc) => {
             let posting = doc.data();
-            console.log('이거이거이거 : '+posting);
+            console.log('이거이거이거 : ' + posting);
 
             //let post_image = posting['post_image'];
             let post_img = posting['post_img'];
