@@ -16,6 +16,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- CSS -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+        * {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
         header {
             background-color: #E7F0DC;
             color: black;
@@ -37,6 +43,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: bold; 
+            font-size : 1.1em;
+            margin : 0px 10px 0px 10px
+            
+        }
+
+        .nav a{
+            text-decoration: none;
+            color: black;
         }
 
         .main {
@@ -70,6 +85,7 @@
             padding: 20px;
         }
     </style>
+
   <!--BootStrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -107,15 +123,23 @@
 <body>
     <!-- 헤더 -->
     <header>
+
         <div class="container">
             <ul class="nav">
-                <li class="col-1" style="margin-right: 3vw;"><a href="#"><img src="image/logo.png"></img></a></li>
-                <li class="col-1"><b>강수민</b></li>
-                <li class="col-1"><b>나유화</b></li>
-                <li class="col-1"><b>남진현</b></li>
-                <li class="col-1"><b>박예서</b></li>
+                <li class="col-1" style="margin-right: 3vw;"><a href="#"><img
+                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b"/></a>
+                </li>
+                <li class="col-1"><a href="#">강수민</a></li>
+                <li class="col-1">나유화</li>
+                <li class="col-1">남진현</li>
+                <li class="col-1">박예서</li>
+
             </ul>
         </div>
+
+
+
+
     </header>
 
     <!-- 메인 -->
@@ -197,7 +221,6 @@
         </div>
     </section>
 
-   
 </body>
 
 </html>
