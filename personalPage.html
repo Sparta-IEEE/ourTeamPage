@@ -128,6 +128,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .projectCards {
             display: flex;
             flex-direction: column;
@@ -166,7 +167,7 @@
     <script type="module">
 
         // Firebase SDK 라이브러리 가져오기        
-        import { getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
@@ -200,16 +201,17 @@
             let post_image = document.getElementById('post_image').files[0];
             let image_name = post_image.name;
             console.log('image' + post_image);
-            console.log('image_name'+image_name);
+            console.log('image_name' + image_name);
             console.log('제발');
 
             let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
+            let post_password=$('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
             let post_date = $('#post_date').val();
 
-            console.log(post_title, post_comment, post_role, post_date);
+            console.log(post_password, post_title, post_comment, post_role, post_date);
 
             // let storageRef = storage.ref();
             // let image_path = storageRef.child('posting/' + image_name);
@@ -217,10 +219,11 @@
             // console.log('uploaded!!!');
             // console.log(image_upload);
 
-            let storageRef=ref(storage,image_name);
+            let storageRef = ref(storage, image_name);
 
             let doc = {
-                'post_img' : post_img,
+                'post_img': post_img,
+                'post_password' : post_password,
                 'post_title': post_title,
                 'post_comment': post_comment,
                 'post_role': post_role,
@@ -230,7 +233,7 @@
             await addDoc(collection(db, "posting"), doc);
             await uploadBytes(storageRef, post_image).then((snapshot) => {
                 console.log(snapshot);
-                getDownloadURL(snapshot.ref).then((url)=>{
+                getDownloadURL(snapshot.ref).then((url) => {
                     console.log('image_url : ' + url);
                 });
                 console.log('uploaded!!!');
@@ -307,7 +310,7 @@
         <div class="container">
             <ul class="nav">
                 <li class="col-1" style="margin-right: 3vw;"><a href="#"><img
-                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=bf5c5b68-cbe2-419e-b5c3-f1c1e65a755b" /></a>
+                            src="https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71" /></a>
                 </li>
                 <li class="col-1"><a href="#">강수민</a></li>
                 <li class="col-1"><a href="#">나유화</a></li>
@@ -320,7 +323,7 @@
 
 
     <!--Project 영역 (헤더,프로젝트 포스팅 박스, 프로젝트 카드)-->
-    
+
     <div class="projectHeader">
         <div style="width:70%;">
             <div>
@@ -349,6 +352,10 @@
             </form>
             <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                 aria-label="Upload"> -->
+            <div class="form-floating mb-3">
+                <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
+                <label for="floatingInput">비밀번호</label>
+            </div>
         </div>
         <div class="form-floating mb-3">
             <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
