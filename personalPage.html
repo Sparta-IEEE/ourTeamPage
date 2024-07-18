@@ -179,8 +179,10 @@
             height: 60px;
             position: relative;
             z-index: 1;
-            margin-top: 50px; /* 원하는 공백 크기로 수정 */
+            margin-top: 50px;
+            /* 원하는 공백 크기로 수정 */
         }
+
         .profile-img {
             border-radius: 50%;
             width: 400px;
@@ -369,6 +371,8 @@
         var storage = getStorage();
 
         var member_id = "";
+        var member_pw = "";
+
         // Firebase에서 멤버 데이터 로드
         async function getMemberData(memberName) {
             const membersCollection = collection(db, "members");
@@ -379,6 +383,7 @@
                 displayMemberCard(memberData);
                 console.log(memberData);
                 member_id = memberData['key'];
+                member_pw = memberData['member_password'];
             });
             console.log('key : ' + member_id);
             await loadProjectCards(member_id); // 포스팅 후 카드 다시 로드
@@ -520,9 +525,16 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
-            await addDoc(collection(db, "members", member_id, "posting"), doc);
-            alert("저장 완료 되었습니다!");
-            await loadProjectCards(member_id); // 포스팅 후 카드 다시 로드
+            if (member_pw == post_password) {
+                await addDoc(collection(db, "members", member_id, "posting"), doc);
+                alert("저장 완료 되었습니다!");
+                await loadProjectCards(member_id);
+
+            }
+            else{
+                alert("패스워드가 틀렸습니다!");
+            }
+            // 포스팅 후 카드 다시 로드
         });
 
     </script>
