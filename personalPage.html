@@ -156,8 +156,11 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-
-            margin-top: 20px;
+            color: black;
+            height: 60px;
+            position: relative;
+            z-index: 1;
+            margin-top: 50px;
         }
 
         .projectHeader button {
@@ -167,13 +170,17 @@
             float: right;
         }
 
-        .topHeader,
-        .projectHeader {
+        .topHeader {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
+            color: black;
+            height: 60px;
+            position: relative;
+            z-index: 1;
             margin-top: 50px;
+            /* 원하는 공백 크기로 수정 */
         }
 
         .profile-img {
@@ -346,11 +353,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-
-
-
-
-
         // Firebase 구성 정보 설정
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
@@ -363,17 +365,14 @@
             measurementId: "G-Y9QR7ZE1HL"
         };
 
-
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         var storage = getStorage();
 
-        // function reloadDivArea() {
-        //     $('#projectCards').load(window.location.href + ' #projectCards');
-        // }
-
         var member_id = "";
+        var member_pw = "";
+
         // Firebase에서 멤버 데이터 로드
         async function getMemberData(memberName) {
             const membersCollection = collection(db, "members");
@@ -384,10 +383,45 @@
                 displayMemberCard(memberData);
                 console.log(memberData);
                 member_id = memberData['key'];
-                //window.location.reload();
-                $('#projectCards').load(window.location.href + ' #projectCards');
+                member_pw = memberData['member_password'];
             });
             console.log('key : ' + member_id);
+            await loadProjectCards(member_id); // 포스팅 후 카드 다시 로드
+        }
+
+        async function loadProjectCards(member_id) {
+            $('#projectCards').empty(); // 기존 카드 비우기
+            let docs = await getDocs(collection(db, "members", member_id, "posting"));
+            console.log('members :' + docs.data);
+            docs.forEach((doc) => {
+                let posting = doc.data();
+                console.log('이거이거이거 : ' + posting);
+
+                let post_img = posting['post_img'];
+                let post_title = posting['post_title'];
+                let post_comment = posting['post_comment'];
+                let post_role = posting['post_role'];
+                let post_date = posting['post_date'];
+
+                let temp_html = `
+                <div class="card mb-3" style="width: 700px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="${post_img}"
+                                class="img-fluid rounded-start" alt="프로젝트 사진">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${post_title}</h5>
+                                <p class="card-text">${post_comment}</p>
+                                <p class="card-text"><small class="text-muted">${post_role}</small></p>
+                                <p class="card-text"><small class="text-muted">${post_date}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                $('#projectCards').append(temp_html);
+            });
         }
 
         // Firebase의 생일 데이터 변환 (월,일)
@@ -454,24 +488,15 @@
                 link.addEventListener("click", (e) => {
                     const memberName = e.target.textContent;
                     getMemberData(memberName);
-                    // function reloadDivArea(){
-                    //     $('#projectCards').load(location.href+'#projectCards');
-                    // }
                 });
             });
         });
 
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function () {
-
-            //포스팅 이미지 파일 들고옴
             let post_image = document.getElementById('post_image').files[0];
             let image_name = post_image.name;
-            console.log('image' + post_image);
-            console.log('image_name' + image_name);
-            console.log('제발');
 
-            //DB에 전달할 값들
             let post_img = "";
             let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
@@ -479,28 +504,19 @@
             let post_role = $('#post_role').val();
             let post_date = $('#post_date').val();
 
-            console.log(post_password, post_title, post_comment, post_role, post_date);
-
             let storageRef = ref(storage, image_name);
 
-
-            //DB, Storage 업로드
             await uploadBytes(storageRef, post_image).then((snapshot) => {
-                //alert('작동함???');
                 console.log('uploaded!!!');
-
             });
             await getDownloadURL(ref(storage, image_name))
                 .then((url) => {
-                    //alert(post_img);
                     post_img = url;
-                    //alert(post_img);
                 })
                 .catch((error) => {
                     alert("뭐가 문제?");
                 });
-            console.log("===========================");
-            //DB에 전달할 값들 필드화
+
             let doc = {
                 'post_img': post_img,
                 'post_password': post_password,
@@ -509,51 +525,16 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
-            console.log("지금 들고올 id : ", member_id);
-            await addDoc(collection(db, "members", member_id, "posting"), doc);
-            //alert("하위 컬렉션 ??");
-            alert("저장 완료 되었습니다!");
-            //window.location.reload();
-            $('#projectCards').load(window.location.href + ' #projectCards');
+            if (member_pw == post_password) {
+                await addDoc(collection(db, "members", member_id, "posting"), doc);
+                alert("저장 완료 되었습니다!");
+                await loadProjectCards(member_id);
 
-
-        });
-
-        //저장된 데이터 가져와서 card 생성
-        let docs = await getDocs(collection(db, "members", member_id, "posting"));
-        $('#projectCards').load(window.location.href + ' #projectCards');
-        console.log('members :' + docs.data);
-        docs.forEach((doc) => {
-            let posting = doc.data();
-            console.log('이거이거이거 : ' + posting);
-
-            //let post_image = posting['post_image'];
-            let post_img = posting['post_img'];
-            let post_title = posting['post_title'];
-            let post_comment = posting['post_comment'];
-            let post_role = posting['post_role'];
-            let post_date = posting['post_date'];
-
-            console.log(post_img, post_password, post_title, post_comment, post_role, post_date);
-
-            let temp_html = `
-            <div class="card mb-3" style="width: 700px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="${post_img}"
-                            class="img-fluid rounded-start" alt="프로젝트 사진">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">${post_title}</h5>
-                            <p class="card-text">${post_comment}</p>
-                            <p class="card-text"><small class="text-muted">${post_role}</small></p>
-                            <p class="card-text"><small class="text-muted">${post_date}</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-            $('#projectCards').append(temp_html);
+            }
+            else{
+                alert("패스워드가 틀렸습니다!");
+            }
+            // 포스팅 후 카드 다시 로드
         });
 
     </script>
@@ -592,13 +573,13 @@
         <!-- 멤버카드표시-->
     </div>
 
-
     <!--Project 영역 (헤더,프로젝트 포스팅 박스, 프로젝트 카드)-->
 
+    <!-- Project Header -->
     <div class="projectHeader">
-        <div style="width:70%;">
-            <div>
-                <div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
                     <h2>Project
                         <button id="savebtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample">
@@ -609,10 +590,9 @@
                             </svg>
                         </button>
                     </h2>
-
+                    <hr>
                 </div>
             </div>
-            <hr>
         </div>
     </div>
 
@@ -625,9 +605,6 @@
                     <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
                         aria-label="Upload">
                 </form>
-                <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload"> -->
-
             </div>
             <div class="form-floating mb-3">
                 <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
@@ -655,11 +632,9 @@
 
     </div>
 
-
     <!--프로젝트 카드-->
     <div id="projectCards" class="projectCard">
         <!--Cards-->
-
     </div>
 
 </body>
