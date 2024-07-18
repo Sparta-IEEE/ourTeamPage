@@ -28,11 +28,6 @@
 
     <!-- CSS -->
 
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
     <style>
         /*구글 폰트*/
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
@@ -143,26 +138,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            float: left;
-            clear: left;
 
-        }
-
-        .projectCards {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            float: left;
-            clear: left;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            clear: left;
         }
 
         .projectCard img {
@@ -228,8 +204,6 @@
         .calendar-container {
             margin-left: 20px;
             flex-shrink: 0;
-            width: 300px;
-            /* 고정된 너비 */
         }
 
         .profile-box {
@@ -393,7 +367,7 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
+        var storage = getStorage();
 
 
         // Firebase에서 멤버 데이터 로드
@@ -507,7 +481,7 @@
             console.log('제발');
 
             //DB에 전달할 값들
-            let post_img = 'test';
+            let post_img = "";
             let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
@@ -516,14 +490,25 @@
 
             console.log(post_password, post_title, post_comment, post_role, post_date);
 
-            // let storageRef = storage.ref();
-            // let image_path = storageRef.child('posting/' + image_name);
-            // let image_upload = image_path.put(post_image);
-            // console.log('uploaded!!!');
-            // console.log(image_upload);
-
             let storageRef = ref(storage, image_name);
 
+
+            //DB, Storage 업로드
+            await uploadBytes(storageRef, post_image).then((snapshot) => {
+                alert('작동함???');
+                console.log('uploaded!!!');
+
+            });
+            await getDownloadURL(ref(storage, image_name))
+                .then((url) => {
+                    alert(post_img);
+                    post_img = url;
+                    alert(post_img);
+                })
+                .catch((error) => {
+                    alert("뭐가 문제?");
+                });
+            console.log("===========================");
             //DB에 전달할 값들 필드화
             let doc = {
                 'post_img': post_img,
@@ -533,32 +518,8 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
-
-            //DB, Storage 업로드
-            await addDoc(collection(db, "posting"), doc);
-            await uploadBytes(storageRef, post_image).then((snapshot) => {
-
-                console.log(snapshot);
-                getDownloadURL(snapshot.ref).then((url) => {
-                    console.log('image_url : ' + url);
-                    doc.post_img = url;
-                });
-                console.log('uploaded!!!');
-                console.log(snapshot)
-
-            });
-            console.log("===========================");
-            getDownloadURL(storageRef)
-                .then((url) => {
-                    console.log('*********URL : ' + url);
-                })
-                .catch((error) => {
-                    alert('오류발생!!!!!!!!!!!!!!!')
-                });
-
-            console.log(doc)
-            console.log(doc.post_image);
-            alert(doc.post_image);
+            await addDoc(collection(db, "members","sumin","posting"), doc);
+            alert("하위 컬렉션 ??");
             window.location.reload();
         });
 
@@ -566,32 +527,11 @@
 
 
         //저장된 데이터 가져와서 card 생성
-        let docs = await getDocs(collection(db, "posting"));
+        let docs = await getDocs(collection(db, "members","sumin","posting"));
+        console.log('members :'+ docs.data);
         docs.forEach((doc) => {
             let posting = doc.data();
-            console.log(posting);
-
-            // getDownloadURL(ref(storage, image_name))
-            //     .then((url) => {
-            //         // `url` is the download URL for 'images/stars.jpg'
-
-            //         // This can be downloaded directly:
-            //         const xhr = new XMLHttpRequest();
-            //         xhr.responseType = 'blob';
-            //         xhr.onload = (event) => {
-            //             const blob = xhr.response;
-            //         };
-            //         xhr.open('GET', url);
-            //         xhr.send();
-
-            //         // Or inserted into an <img> element
-            //         const img = document.getElementById('myimg');
-            //         img.setAttribute('src', url);
-
-            //     })
-            //     .catch((error) => {
-            //         // Handle any errors
-            //     });
+            console.log('이거이거이거 : '+posting);
 
             //let post_image = posting['post_image'];
             let post_img = posting['post_img'];
@@ -599,6 +539,8 @@
             let post_comment = posting['post_comment'];
             let post_role = posting['post_role'];
             let post_date = posting['post_date'];
+
+            console.log(post_img, post_password, post_title, post_comment, post_role, post_date);
 
             let temp_html = `
             <div class="card mb-3" style="width: 700px;">
@@ -624,8 +566,6 @@
 </head>
 
 <body>
-    <button id="testbtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">TEST
-        저장</button>
 
     <!--Nav bar-->
     <header>
@@ -675,6 +615,7 @@
                             </svg>
                         </button>
                     </h2>
+
                 </div>
             </div>
             <hr>
@@ -683,6 +624,7 @@
 
     <!--프로젝트 포스팅 박스-->
     <div class="collapse" id="collapseExample">
+
         <div class="projectPostingBox" id="projectPostingBox">
             <div class="input-group">
                 <form enctype="multipart/form-data">
@@ -691,10 +633,11 @@
                 </form>
                 <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload"> -->
-                <div class="form-floating mb-3">
-                    <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
-                    <label for="floatingInput">비밀번호</label>
-                </div>
+
+            </div>
+            <div class="form-floating mb-3">
+                <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
+                <label for="floatingInput">비밀번호</label>
             </div>
             <div class="form-floating mb-3">
                 <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
@@ -715,14 +658,14 @@
             <button id="projectPostBtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트
                 저장</button>
         </div>
+
     </div>
 
 
     <!--프로젝트 카드-->
-    <div class="projectCard">
-        <div id="projectCards" class="row row-cols-1 row-cols-md-1 g-4">
-            <!--Cards-->
-        </div>
+    <div id="projectCards" class="projectCard">
+        <!--Cards-->
+
     </div>
 
 </body>
