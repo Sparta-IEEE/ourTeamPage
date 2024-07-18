@@ -370,6 +370,7 @@
         var storage = getStorage();
 
 
+        var member_id ="";
         // Firebase에서 멤버 데이터 로드
         async function getMemberData(memberName) {
             const membersCollection = collection(db, "members");
@@ -378,7 +379,11 @@
             querySnapshot.forEach((doc) => {
                 const memberData = doc.data();
                 displayMemberCard(memberData);
+                console.log(memberData);
+                member_id=memberData['key'];
+                //window.location.reload();
             });
+            console.log('key : '+member_id);
         }
 
         // Firebase의 생일 데이터 변환 (월,일)
@@ -445,30 +450,12 @@
                 link.addEventListener("click", (e) => {
                     const memberName = e.target.textContent;
                     getMemberData(memberName);
+                    // function reloadDivArea(){
+                    //     $('#projectCards').load(location.href+'#projectCards');
+                    // }
                 });
             });
         });
-
-        var temp = " ";
-
-
-        $('#testbtn').click(async function () {
-            alert('button 확인');
-            var storage = getStorage();
-            getDownloadURL(ref(storage, 'ieee.png'))
-                .then((url) => {
-                    alert(temp);
-                    temp = url;
-                    alert(temp);
-                })
-                .catch((error) => {
-                    alert("뭐가 문제?");
-                });
-
-
-        });
-
-
 
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function () {
@@ -495,15 +482,15 @@
 
             //DB, Storage 업로드
             await uploadBytes(storageRef, post_image).then((snapshot) => {
-                alert('작동함???');
+                //alert('작동함???');
                 console.log('uploaded!!!');
 
             });
             await getDownloadURL(ref(storage, image_name))
                 .then((url) => {
-                    alert(post_img);
+                    //alert(post_img);
                     post_img = url;
-                    alert(post_img);
+                    //alert(post_img);
                 })
                 .catch((error) => {
                     alert("뭐가 문제?");
@@ -518,16 +505,15 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
-            await addDoc(collection(db, "members","sumin","posting"), doc);
-            alert("하위 컬렉션 ??");
-            window.location.reload();
+            console.log("지금 들고올 id : ", member_id);
+            await addDoc(collection(db, "members",member_id,"posting"), doc);
+            //alert("하위 컬렉션 ??");
+            alert("저장 완료 되었습니다!");
+            
         });
 
-
-
-
         //저장된 데이터 가져와서 card 생성
-        let docs = await getDocs(collection(db, "members","sumin","posting"));
+        let docs = await getDocs(collection(db, "members", member_id,"posting"));
         console.log('members :'+ docs.data);
         docs.forEach((doc) => {
             let posting = doc.data();
