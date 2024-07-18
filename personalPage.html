@@ -27,6 +27,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
     <style>
         /*구글 폰트*/
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
@@ -171,8 +177,8 @@
 
             float: right;
         }
-      
-      .topHeader,
+
+        .topHeader,
         .projectHeader {
             display: flex;
             flex-direction: row;
@@ -342,11 +348,8 @@
             height: 100% !important;
             /* 내부 요소 높이 조절 */
         }
-  </style>
-      <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    </style>
+
 
     <!--javascript-->
     <script type="module">
@@ -355,9 +358,8 @@
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        
+
 
 
 
@@ -473,7 +475,7 @@
 
             //DB에 전달할 값들
             let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
-            let post_password=$('#post_password').val();
+            let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
@@ -492,7 +494,7 @@
             //DB에 전달할 값들 필드화
             let doc = {
                 'post_img': post_img,
-                'post_password' : post_password,
+                'post_password': post_password,
                 'post_title': post_title,
                 'post_comment': post_comment,
                 'post_role': post_role,
@@ -591,7 +593,8 @@
             <div>
                 <div>
                     <h2>Project
-                        <button id="savebtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <button id="savebtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -609,9 +612,9 @@
     <div class="collapse" id="collapseExample">
         <div class="projectPostingBox" id="projectPostingBox">
             <div class="input-group">
-                <form enctype="multipart/form-data" >
+                <form enctype="multipart/form-data">
                     <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
-                        aria-label="Upload" >
+                        aria-label="Upload">
                 </form>
                 <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload"> -->
@@ -640,7 +643,7 @@
                 저장</button>
         </div>
     </div>
-    
+
 
     <!--프로젝트 카드-->
     <div class="projectCard">
