@@ -197,13 +197,14 @@
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function () {
 
-
+            //포스팅 이미지 파일 들고옴
             let post_image = document.getElementById('post_image').files[0];
             let image_name = post_image.name;
             console.log('image' + post_image);
             console.log('image_name' + image_name);
             console.log('제발');
 
+            //DB에 전달할 값들
             let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
             let post_password=$('#post_password').val();
             let post_title = $('#post_title').val();
@@ -221,6 +222,7 @@
 
             let storageRef = ref(storage, image_name);
 
+            //DB에 전달할 값들 필드화
             let doc = {
                 'post_img': post_img,
                 'post_password' : post_password,
@@ -230,6 +232,7 @@
                 'post_date': post_date
             };
 
+            //DB, Storage 업로드
             await addDoc(collection(db, "posting"), doc);
             await uploadBytes(storageRef, post_image).then((snapshot) => {
                 console.log(snapshot);
@@ -262,10 +265,6 @@
         // let downStoragePhotoUrl=await getDownloadURL(ref(storage));
         // console.log(downStoragePhotoUrl);
 
-        //포스팅 박스 토글
-        $('#savebtn').click(async function () {
-            $('#projectPostingBox').toggle();
-        })
 
         //저장된 데이터 가져와서 card 생성
         let docs = await getDocs(collection(db, "posting"));
@@ -329,7 +328,7 @@
             <div>
                 <div>
                     <h2>Project
-                        <button id="savebtn">
+                        <button id="savebtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -344,38 +343,41 @@
     </div>
 
     <!--프로젝트 포스팅 박스-->
-    <div class="projectPostingBox" id="projectPostingBox">
-        <div class="input-group">
-            <form enctype="multipart/form-data">
-                <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload">
-            </form>
-            <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
-                aria-label="Upload"> -->
-            <div class="form-floating mb-3">
-                <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
-                <label for="floatingInput">비밀번호</label>
+    <div class="collapse" id="collapseExample">
+        <div class="projectPostingBox" id="projectPostingBox">
+            <div class="input-group">
+                <form enctype="multipart/form-data">
+                    <input type="file" id="post_image" class="form-control" aria-describedby="inputGroupFileAddon04"
+                        aria-label="Upload">
+                </form>
+                <!-- <input type="file" class="form-control" id="post_image" aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload"> -->
+                <div class="form-floating mb-3">
+                    <input type="post_password" class="form-control" id="post_password" placeholder="비밀번호">
+                    <label for="floatingInput">비밀번호</label>
+                </div>
             </div>
+            <div class="form-floating mb-3">
+                <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
+                <label for="floatingInput">프로젝트명</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="post_comment" class="form-control" id="post_comment" placeholder="프로젝트 설명">
+                <label for="floatingInput">프로젝트 설명</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="post_role" class="form-control" id="post_role" placeholder="맡은 역할">
+                <label for="floatingInput">맡은 역할</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="post_date" class="form-control" id="post_date" placeholder="프로젝트 진행 날짜">
+                <label for="floatingInput">프로젝트 진행 날짜</label>
+            </div>
+            <button id="projectPostBtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트
+                저장</button>
         </div>
-        <div class="form-floating mb-3">
-            <input type="post_title" class="form-control" id="post_title" placeholder="프로젝트명">
-            <label for="floatingInput">프로젝트명</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="post_comment" class="form-control" id="post_comment" placeholder="프로젝트 설명">
-            <label for="floatingInput">프로젝트 설명</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="post_role" class="form-control" id="post_role" placeholder="맡은 역할">
-            <label for="floatingInput">맡은 역할</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="post_date" class="form-control" id="post_date" placeholder="프로젝트 진행 날짜">
-            <label for="floatingInput">프로젝트 진행 날짜</label>
-        </div>
-        <button id="projectPostBtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">프로젝트
-            저장</button>
     </div>
+    
 
     <!--프로젝트 카드-->
     <div class="projectCard">
