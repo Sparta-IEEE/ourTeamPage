@@ -143,6 +143,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            float: left;
+            clear: left;
+
         }
 
         .projectCards {
@@ -150,6 +153,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            float: left;
+            clear: left;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            clear: left;
         }
 
         .projectCard img {
@@ -462,6 +475,26 @@
             });
         });
 
+        var temp = " ";
+
+
+        $('#testbtn').click(async function () {
+            alert('button 확인');
+            var storage = getStorage();
+            getDownloadURL(ref(storage, 'ieee.png'))
+                .then((url) => {
+                    alert(temp);
+                    temp = url;
+                    alert(temp);
+                })
+                .catch((error) => {
+                    alert("뭐가 문제?");
+                });
+
+
+        });
+
+
 
         //프로젝트 포스팅 박스 클릭시
         $('#projectPostBtn').click(async function () {
@@ -474,7 +507,7 @@
             console.log('제발');
 
             //DB에 전달할 값들
-            let post_img = 'https://firebasestorage.googleapis.com/v0/b/sparta-ieee-b36aa.appspot.com/o/ieee.png?alt=media&token=fc85d72e-02cf-4fc1-a89c-3f7597be7f71';
+            let post_img = 'test';
             let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
@@ -504,16 +537,32 @@
             //DB, Storage 업로드
             await addDoc(collection(db, "posting"), doc);
             await uploadBytes(storageRef, post_image).then((snapshot) => {
+
                 console.log(snapshot);
                 getDownloadURL(snapshot.ref).then((url) => {
                     console.log('image_url : ' + url);
+                    doc.post_img = url;
                 });
                 console.log('uploaded!!!');
                 console.log(snapshot)
+
             });
-            alert('저장완료!');
+            console.log("===========================");
+            getDownloadURL(storageRef)
+                .then((url) => {
+                    console.log('*********URL : ' + url);
+                })
+                .catch((error) => {
+                    alert('오류발생!!!!!!!!!!!!!!!')
+                });
+
+            console.log(doc)
+            console.log(doc.post_image);
+            alert(doc.post_image);
             window.location.reload();
         });
+
+
 
 
         //저장된 데이터 가져와서 card 생성
@@ -521,6 +570,28 @@
         docs.forEach((doc) => {
             let posting = doc.data();
             console.log(posting);
+
+            // getDownloadURL(ref(storage, image_name))
+            //     .then((url) => {
+            //         // `url` is the download URL for 'images/stars.jpg'
+
+            //         // This can be downloaded directly:
+            //         const xhr = new XMLHttpRequest();
+            //         xhr.responseType = 'blob';
+            //         xhr.onload = (event) => {
+            //             const blob = xhr.response;
+            //         };
+            //         xhr.open('GET', url);
+            //         xhr.send();
+
+            //         // Or inserted into an <img> element
+            //         const img = document.getElementById('myimg');
+            //         img.setAttribute('src', url);
+
+            //     })
+            //     .catch((error) => {
+            //         // Handle any errors
+            //     });
 
             //let post_image = posting['post_image'];
             let post_img = posting['post_img'];
@@ -553,6 +624,8 @@
 </head>
 
 <body>
+    <button id="testbtn" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">TEST
+        저장</button>
 
     <!--Nav bar-->
     <header>
@@ -563,7 +636,7 @@
                 </li>
                 <li class="col-1"><a href="#">강수민</a></li>
                 <li class="col-1"><a href="#">나유화</a></li>
-                <li class="col-1"><a href="#">남진혁</a></li>
+                <li class="col-1"><a href="#">남진현</a></li>
                 <li class="col-1"><a href="#">박예서</a></li>
             </ul>
         </div>
