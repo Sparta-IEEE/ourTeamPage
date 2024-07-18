@@ -170,7 +170,9 @@
             float: right;
         }
 
-        .topHeader {
+
+        .topHeader,
+        .projectHeader {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -353,6 +355,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+
         // Firebase 구성 정보 설정
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
@@ -497,12 +500,14 @@
             let post_image = document.getElementById('post_image').files[0];
             let image_name = post_image.name;
 
+            //DB에 전달할 값들
             let post_img = "";
             let post_password = $('#post_password').val();
             let post_title = $('#post_title').val();
             let post_comment = $('#post_comment').val();
             let post_role = $('#post_role').val();
             let post_date = $('#post_date').val();
+
 
             let storageRef = ref(storage, image_name);
 
@@ -517,6 +522,8 @@
                     alert("뭐가 문제?");
                 });
 
+            console.log("===========================");
+            //DB에 전달할 값들 필드화
             let doc = {
                 'post_img': post_img,
                 'post_password': post_password,
@@ -525,6 +532,7 @@
                 'post_role': post_role,
                 'post_date': post_date
             };
+
             if (member_pw == post_password) {
                 await addDoc(collection(db, "members", member_id, "posting"), doc);
                 alert("저장 완료 되었습니다!");
@@ -534,7 +542,6 @@
             else{
                 alert("패스워드가 틀렸습니다!");
             }
-            // 포스팅 후 카드 다시 로드
         });
 
     </script>
@@ -591,6 +598,7 @@
                         </button>
                     </h2>
                     <hr>
+
                 </div>
             </div>
         </div>
@@ -632,9 +640,11 @@
 
     </div>
 
+
     <!--프로젝트 카드-->
     <div id="projectCards" class="projectCard">
         <!--Cards-->
+
     </div>
 
 </body>
