@@ -391,18 +391,25 @@
 
         async function loadProjectCards(member_id) {
             $('#projectCards').empty(); // 기존 카드 비우기
+            
+            //DB에서 데이터 가져오기
             let docs = await getDocs(collection(db, "members", member_id, "posting"));
+
             console.log('members :' + docs.data);
+
+            //DB에서 가져온 문서를 하나씩 저장해서 뿌려주기
             docs.forEach((doc) => {
                 let posting = doc.data();
                 console.log('이거이거이거 : ' + posting);
 
+                //가져온 데이터 변수에 넣어주기
                 let post_img = posting['post_img'];
                 let post_title = posting['post_title'];
                 let post_comment = posting['post_comment'];
                 let post_role = posting['post_role'];
                 let post_date = posting['post_date'];
 
+                //데이터 넣어서 뿌려줄 HTML
                 let temp_html = `
                 <div class="card mb-3" style="width: 700px;">
                     <div class="row g-0">
